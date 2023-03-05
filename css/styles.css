@@ -1,5 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: aquamarine;
+    width: 80vw;
+    margin: auto;
+    background-color: darkseagreen;
+}
+
+#navigation li{
+    display: inline-block;
+}
+
+#navigation {
+    background-color: bisque;
+    margin: 6px;
 }
 
 table, th, tr, td {

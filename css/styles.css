@@ -29,7 +29,7 @@ body {
 #header {
     background-color: darkgreen;
     color: white;
-    padding: 15px;
+    padding: 3vw;
 }
 
 .navigation ul{
@@ -38,16 +38,30 @@ body {
     padding: 0;
 }
 
+.navigation a {
+    text-decoration: none;
+}
+
+.navigation a:link, a:visited {
+    color: black;
+    font-weight: bold;
+}
+
+.navigation a:hover, a:active {
+    color: red;
+}
+
 .navigation li{
     padding: 8px;
     margin-bottom: 7px;
     background-color: greenyellow;
     color: #ffffff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 1vw;
 }
 
 .navigation li:hover {
-    background-color: #0099cc;
+    background-color: yellow;
 }
 
 .navigation li.active, a.active {
@@ -56,7 +70,7 @@ body {
 
 .aside {
     background-color: lightslategray;
-    padding: 15px;
+    padding: 1vw;
     color: #ffffff;
     text-align: center;
     font-size: 14px;
@@ -68,13 +82,14 @@ body {
     color: #ffffff;
     text-align: center;
     font-size: 12px;
-    padding: 15px;
+    padding: 1vw;
 }
 
 
 table, th, tr, td {
     border: 1px solid black;
     border-collapse: collapse;
+    padding: 1vw;
 }
 
 /* For mobile phones: */

@@ -48,11 +48,11 @@
 -->
 <div class="col-5 col-s-9">
         <h2 id="elso">Cégünkről</h2>
-        <img id="logo" src="pics/icon.jpg"/>
+        <img id="logo" alt="A Növénypatika logója" src="pics/icon.jpg"/>
         <p>Morbi pretium tincidunt suscipit. Integer non felis neque. Ut posuere facilisis ligula sed ullamcorper. Ut tempor sit amet ipsum vestibulum tincidunt. Etiam fringilla tincidunt lectus, sit amet maximus eros accumsan vitae. Nullam sit amet dictum nibh. Phasellus mollis venenatis nulla, a porta ligula molestie nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec commodo, elit nec auctor sollicitudin, lacus lectus placerat velit, id sodales nulla dolor molestie nibh. Sed elit orci, iaculis vitae justo eget, consectetur ullamcorper dolor. Donec massa quam, finibus sit amet magna vel, tincidunt rhoncus mi. Integer bibendum ac nibh non dapibus. Curabitur sollicitudin imperdiet libero, id condimentum dolor facilisis eget. Cras eget placerat elit. Curabitur non turpis nec neque pulvinar consectetur. Etiam hendrerit ante eget viverra dapibus.</p>
-           Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>
+        <p>Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>
 
-         <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
+        <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
 </div>
 
 <div class="col-4 col-s-12">
@@ -82,16 +82,16 @@
             <legend>Regisztráció</legend>
             <label for="full-name">Név:</label><br/>
             <input type="text" id="full-name" name="full-name" size="20"/><br/><br/>
-            <label for="username">Felhasználónév:</label><br/>
-            <input type="text" name="username" required/><br/><br/>
-            <label>Jelszó:</label><br/>
-            <input type="password" name="passwd" required/><br/><br/>
-            <label>Jelszó ismét:</label><br/>
-            <input type="password" name="passwd-check" required/><br/><br/>
-            <label>Születési dátum:</label><br/>
-            <input type="date" name="date-of-birth" min="1910-01-01"/><br/><br/>
-            <label>E-mail:</label><br/>
-            <input type="email" name="email" required/><br/><br/>
+            <label for="user">Felhasználónév:</label><br/>
+            <input type="text" id="user" name="user" required/><br/><br/>
+            <label for="pw">Jelszó:</label><br/>
+            <input type="password" id="pw" name="pw" required/><br/><br/>
+            <label for="re-pw">Jelszó ismét:</label><br/>
+            <input type="password" id="re-pw" name="passwd-check" required/><br/><br/>
+            <label for="birth">Születési dátum:</label><br/>
+            <input type="date" id="birth" name="date-of-birth" min="1910-01-01"/><br/><br/>
+            <label for="mail">E-mail:</label><br/>
+            <input type="email" id="mail" name="email" required/><br/><br/>
 
 
         <label for="education">Növényvédelmi végzettség:</label><br/>
@@ -116,8 +116,8 @@
         <input type="checkbox" id="garden" name="garden" value="garden"/><br/>
         <label for="forestry">Erdészet:</label>
         <input type="checkbox" id="forestry" name="forestry" value="forestry"/><br/><br/>
-            <label>Gazdaság mérete (ha):</label><br/>
-            <input type="number" name="area"/><br/><br/>
+            <label for="area">Gazdaság mérete (ha):</label><br/>
+            <input type="number" id="area" name="area"/><br/><br/>
             <br/><br/><hr/><br/>
         <label>Vásárlási engedély feltöltése:</label><br/><br/>
         <input type="file" name="licence-pic"/><br/><br/>

@@ -32,6 +32,11 @@ body {
     padding: 3vw;
 }
 
+.navigation {
+    position: sticky;
+    top: 0;
+}
+
 .navigation ul{
     list-style-type: none;
     margin: 0;
@@ -68,8 +73,13 @@ body {
     background-color: white;
 }
 
+#logo {
+    float: left;
+    margin: 1vw;
+}
+
 .aside {
-    background-color: lightslategray;
+    background-color: lightslategrey;
     padding: 1vw;
     color: #ffffff;
     text-align: center;
@@ -90,6 +100,17 @@ table, th, tr, td {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 1vw;
+}
+
+h1, h2 {margin: 1vw;
+}
+
+aside fieldset, form {
+    text-align: center;
+}
+
+aside h2, legend {
+    color: darkblue;
 }
 
 /* For mobile phones: */

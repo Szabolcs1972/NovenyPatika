@@ -46,17 +46,90 @@
 
     </div>
 -->
-<div class="col-6 col-s-9">
+<div class="col-5 col-s-9">
         <h2 id="elso">Cégünkről</h2>
+        <img id="logo" src="pics/icon.jpg"/>
         <p>Morbi pretium tincidunt suscipit. Integer non felis neque. Ut posuere facilisis ligula sed ullamcorper. Ut tempor sit amet ipsum vestibulum tincidunt. Etiam fringilla tincidunt lectus, sit amet maximus eros accumsan vitae. Nullam sit amet dictum nibh. Phasellus mollis venenatis nulla, a porta ligula molestie nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec commodo, elit nec auctor sollicitudin, lacus lectus placerat velit, id sodales nulla dolor molestie nibh. Sed elit orci, iaculis vitae justo eget, consectetur ullamcorper dolor. Donec massa quam, finibus sit amet magna vel, tincidunt rhoncus mi. Integer bibendum ac nibh non dapibus. Curabitur sollicitudin imperdiet libero, id condimentum dolor facilisis eget. Cras eget placerat elit. Curabitur non turpis nec neque pulvinar consectetur. Etiam hendrerit ante eget viverra dapibus.</p>
+           Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>
 
+         <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
 </div>
 
-<div class="col-3 col-s-12">
+<div class="col-4 col-s-12">
 <div class="aside">
-    <p>Cím: Szeged, Dorozsmai út. X.</p>
+    <aside>
+    <address>Cím: Szeged, Dorozsmai út. X.</address>
     <p>Tel: 62-457-893</p>
-    <p>email: novenypatika@novenypatika.eu</p>
+    <p>novenypatika@novenypatika.eu</p>
+
+    <h2>Jelentkezz be, vagy regisztrálj!</h2>
+    <form action="" method="POST">
+        <fieldset>
+            <legend>Bejelentkezés:</legend>
+            <label for="username">Felhasználó név:</label><br/>
+            <input type="text" id="username" name="username"/><br/><br/>
+            <label for="email">E-mail cím:</label><br/>
+            <input type="email" id="email" name="email"/><br/><br/>
+            <label for="passwd">Jelszó:</label><br/>
+            <input type="password" id="passwd" name="passwd"/><br/><br/>
+            <input type="submit"/>
+        </fieldset>
+    </form>
+
+        <br/><br/><hr/><br/>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Regisztráció</legend>
+            <label for="full-name">Név:</label><br/>
+            <input type="text" id="full-name" name="full-name" size="20"/><br/><br/>
+            <label for="username">Felhasználónév:</label><br/>
+            <input type="text" name="username" required/><br/><br/>
+            <label>Jelszó:</label><br/>
+            <input type="password" name="passwd" required/><br/><br/>
+            <label>Jelszó ismét:</label><br/>
+            <input type="password" name="passwd-check" required/><br/><br/>
+            <label>Születési dátum:</label><br/>
+            <input type="date" name="date-of-birth" min="1910-01-01"/><br/><br/>
+            <label>E-mail:</label><br/>
+            <input type="email" name="email" required/><br/><br/>
+
+
+        <label for="education">Növényvédelmi végzettség:</label><br/>
+        <select id="education">
+            <option value="white">Fehérkönyves (I.)</option>
+            <option value="green">Zöldkönyves (II.)</option>
+            <option value="none" selected>Nincs (III.)</option>
+        </select><br/><br/><hr/><br/>
+
+       <legend>Cégforma</legend><br/>
+        <label for="op1">Őstermelő:</label>
+        <input type="radio" id="op1" name="firm" value="farmer"/><br/>
+        <label for="op2">Kft., Bt.:</label>
+        <input type="radio" id="op2" name="firm" value="enterprise"/><br/>
+        <label for="op3">Magánszemély:</label>
+        <input type="radio" id="op3" name="firm" value="individual" checked/> <br/>
+            <br/><br/><hr/><br/>
+        <legend>Ágazat</legend><br/>
+        <label for="arable">Szántóföld:</label>
+        <input type="checkbox" id="arable" name="arable" value="arable"/><br/>
+        <label for="garden">Kertészet:</label>
+        <input type="checkbox" id="garden" name="garden" value="garden"/><br/>
+        <label for="forestry">Erdészet:</label>
+        <input type="checkbox" id="forestry" name="forestry" value="forestry"/><br/><br/>
+            <label>Gazdaság mérete (ha):</label><br/>
+            <input type="number" name="area"/><br/><br/>
+            <br/><br/><hr/><br/>
+        <label>Vásárlási engedély feltöltése:</label><br/><br/>
+        <input type="file" name="licence-pic"/><br/><br/>
+
+        <label for="comment">Megjegyzés<br/>(max. 150 karakter):</label> <br/>
+        <textarea id="comment" name="comment" maxlength="150"></textarea> <br/>
+            <br/><br/><hr/><br/>
+        <input type="reset" name="reset-btn" value="Adatok törlése"/>
+        <input type="submit" name="submit-btn" value="Adatok elküldése"/>
+        </fieldset>
+    </form>
+    </aside>
 </div>
 </div>
 </div>

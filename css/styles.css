@@ -73,9 +73,18 @@ body {
     background-color: white;
 }
 
-#logo {
+.logo {
     float: left;
     margin: 1vw;
+}
+
+p {
+    text-align: justify;
+}
+
+p::first-letter {
+    color: #ff0000;
+    font-size: xx-large;
 }
 
 .aside {

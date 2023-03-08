@@ -47,12 +47,36 @@
     </div>
 -->
 <div class="col-5 col-s-9">
+        <main>
         <h2 id="elso">Cégünkről</h2>
         <img class="logo" alt="A Növénypatika logója" src="pics/icon.jpg"/>
         <p>Morbi pretium tincidunt suscipit. Integer non felis neque. Ut posuere facilisis ligula sed ullamcorper. Ut tempor sit amet ipsum vestibulum tincidunt. Etiam fringilla tincidunt lectus, sit amet maximus eros accumsan vitae. Nullam sit amet dictum nibh. Phasellus mollis venenatis nulla, a porta ligula molestie nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec commodo, elit nec auctor sollicitudin, lacus lectus placerat velit, id sodales nulla dolor molestie nibh. Sed elit orci, iaculis vitae justo eget, consectetur ullamcorper dolor. Donec massa quam, finibus sit amet magna vel, tincidunt rhoncus mi. Integer bibendum ac nibh non dapibus. Curabitur sollicitudin imperdiet libero, id condimentum dolor facilisis eget. Cras eget placerat elit. Curabitur non turpis nec neque pulvinar consectetur. Etiam hendrerit ante eget viverra dapibus.</p>
         <p>Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>
 
         <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
+        <article>
+        <h2>Növényvédőszer kereső</h2>
+        <form action="" method="post">
+            <fieldset>
+            <legend>Növényvédőszer kereső</legend>
+
+                <select id="crop">
+                    <option value="redpepper">Fűszerpaprika</option>
+                    <option value="peach">Őszibarack</option>
+                    <option value="rose">Rózsa</option>
+                    <option value="tomato" selected>Paradicsom</option>
+                </select></br>
+                <label for="fungicid">Gombaölőszer</label>
+                <input type="radio" id="fungicid" name="fungicid" value="fungicid"/><br/>
+                <label for="insecticid">Rovarölőszer</label>
+                <input type="radio" id="insecticid" name="insecticid" value="insecticid" checked/><br/>
+                <label for="herbicid">Gyomirtószer</label>
+                <input type="radio" id="herbicid" name="herbicid" value="herbicid"/> <br/>
+                <input type="submit" name="szerkereso" value="Keres"/>
+            </fieldset>
+        </form>
+        </article>
+        </main>
 </div>
 
 <div class="col-4 col-s-12">
@@ -63,7 +87,7 @@
     <p>novenypatika@novenypatika.eu</p>
 
     <h2>Jelentkezz be, vagy regisztrálj!</h2>
-    <form action="" method="POST">
+    <form action="" method="post">
         <fieldset>
             <legend>Bejelentkezés:</legend>
             <label for="username">Felhasználó név:</label><br/>
@@ -72,12 +96,12 @@
             <input type="email" id="email" name="email"/><br/><br/>
             <label for="passwd">Jelszó:</label><br/>
             <input type="password" id="passwd" name="passwd"/><br/><br/>
-            <input type="submit"/>
+            <input type="submit" name="login" value="Bejelentkezés"/>
         </fieldset>
     </form>
 
         <br/><br/><hr/><br/>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Regisztráció</legend>
             <label for="full-name">Név:</label><br/>
@@ -126,7 +150,7 @@
         <textarea id="comment" name="comment" maxlength="150"></textarea> <br/>
             <br/><br/><hr/><br/>
         <input type="reset" name="reset-btn" value="Adatok törlése"/>
-        <input type="submit" name="submit-btn" value="Adatok elküldése"/>
+        <input type="submit" name="registration" value="Regisztráció"/>
         </fieldset>
     </form>
     </aside>

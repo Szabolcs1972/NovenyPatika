@@ -78,11 +78,11 @@ body {
     margin: 1vw;
 }
 
-p {
+main p {
     text-align: justify;
 }
 
-p::first-letter {
+main p::first-letter {
     color: #ff0000;
     font-size: xx-large;
 }
@@ -111,7 +111,8 @@ table, th, tr, td {
     padding: 1vw;
 }
 
-h1, h2 {margin: 1vw;
+h1, h2 {
+    margin: 1vw;
 }
 
 aside fieldset, form {

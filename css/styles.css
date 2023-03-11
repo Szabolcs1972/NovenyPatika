@@ -1,9 +1,11 @@
+/* some general basic setup */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+/* settings for responsive design, it is not grid or flex, interesting solution */
 .row::after {
     content: "";
     clear: both;
@@ -15,6 +17,7 @@
     padding: 15px;
 }
 
+/* styles for main tags, till header */
 html {
     font-family: Verdana, sans-serif;
 }
@@ -32,9 +35,13 @@ body {
     padding: 3vw;
 }
 
+/* styles for navigation buttons, 3-column wide */
+
 .navigation {
     position: sticky;
     top: 0;
+/* not to be covered by css effect int the case of smart phones, set z-index to 100*/
+    z-index: 100;
 }
 
 .navigation ul{
@@ -73,6 +80,7 @@ body {
     background-color: white;
 }
 
+/* styles for main area, takes 5-columns from 12 */
 .logo {
     float: left;
     margin: 1vw;
@@ -87,6 +95,66 @@ main p::first-letter {
     font-size: xx-large;
 }
 
+table, th, tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 1vw;
+}
+
+main fieldset {
+    padding: 2vw;
+    background-color: palegreen;
+}
+
+main * {
+    margin: 1vw;
+}
+
+#crop-label, #radio-pesticides {
+    font-style: italic;
+}
+
+h2 {
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+/* effect for pesticides in action */
+.rotate {
+    transform: translate(10px, 10px) rotate(45deg);
+    width: 150px; height: 150px; padding: 10px;
+    background-color: #fefbaf;
+    text-align: center;
+    margin: 3em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rotate div {
+    display:inline-block;
+}
+
+.rotate span {
+    display:none;
+}
+
+.rotate:hover {
+    transform: translate(10px, 10px) rotate(0deg);
+    width: 150px; height: 150px; padding: 10px;
+    background-color: white;
+    font-weight: bold;
+    text-shadow: 2px 5px 5px red;
+}
+
+.rotate:hover span {
+    display: inline;
+}
+
+.rotate:hover p {
+    display: none;
+}
+
+/* styles for aside, takes 4-columns space from 12 */
 .aside {
     background-color: lightslategrey;
     padding: 1vw;
@@ -94,25 +162,6 @@ main p::first-letter {
     text-align: center;
     font-size: 14px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.footer {
-    background-color: mediumpurple;
-    color: #ffffff;
-    text-align: center;
-    font-size: 12px;
-    padding: 1vw;
-}
-
-
-table, th, tr, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 1vw;
-}
-
-h1, h2 {
-    margin: 1vw;
 }
 
 aside fieldset, form {
@@ -123,7 +172,19 @@ aside h2, legend {
     color: darkblue;
 }
 
+
+.footer {
+    background-color: mediumpurple;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 1vw;
+}
+
+
+/*Media Queries for responsive design */
 /* For mobile phones: */
+
 [class*="col-"] {
     width: 100%;
 }

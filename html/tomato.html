@@ -58,32 +58,36 @@
             <a href="https://foliavezerles.hu/paradicsomtermesztes-mezon-uveghazban-es-a-kertben/">Forrás</a></p>
         </article>
         <article>
-        <h1>Paradicsomban használható szerek</h1>
-        <div style="overflow-x: auto">
+        <h2>Paradicsomban használható szerek</h2>
+        <div class="tableOverflow">
         <table>
-            <tr><th>Növényvédőszer neve</th><th>Hatóanyag neve</th><th>Szer rendeltetése</th><th>Károsító</th></tr>
-            <tr><td>Trichoplus fürkészdarázs</td><td>Trichogramma evanescens, T. pintoi</td><td>makroszervezet</td><td>gyapottok-bagolylepke</td></tr>
-            <tr><td>Naturalis-L</td><td>Beauveria bassiana</td><td>biológiai rovarölőszer</td><td>liszteske, takácsatka, üvegházi molytetű</td></tr>
-            <tr><td>Trianum P</td><td>Trichoderma harzianum </td><td>gombaölő csávázószer</td><td>palántadőlés</td></tr>
-            <tr><td>Contans WG</td><td>Coniothyrium minitans</td><td>gombaölő szer</td><td>fehérpenész</td></tr>
-            <tr><td>Taegro</td><td>Bacillus amyloliquefaciens FZB24 törzs</td><td>gombaölő szer</td><td>lisztharmat, szürkepenész</td></tr>
-            <tr><td>V-10</td><td>Pepino mosaic virus strain CH2 isolate 1906</td><td>gombaölő szer</td><td>vírusok</td></tr>
-            <tr><td>Koppert Natupol poszméh</td><td>Bombus terrestris</td><td>makroszervezet</td><td>megporzás elősegítése</td></tr>
-            <tr><td>Koppert ragadozó katicabogár</td><td>Adalia bipuctata</td><td>makroszervezet</td><td>levéltetvek</td></tr>
-            <tr><td>Koppert ragadozó fonálférgek</td><td></td><td>rovarölő szer</td><td>Paradicsommoly (Tuta absoluta)</td></tr>
-            <tr><td>BIOBEST ENCARSIA</td><td>Encarsia formosa</td><td>makroszervezet</td><td>üvegházi molytetű</td></tr>
-            <tr><td>BIOBEST MACROLOPHUS</td><td>Macrolophus pygmaeus</td><td>biológiai rovarölőszer</td><td>takácsatkák, üvegházi molytetű</td></tr>
-            <tr><td>Bioline fürkészdarázs II.</td><td>Trichogramma brassicae</td><td>makroszervezet</td><td>gyapottok-bagolylepke</td></tr>
-            <tr><td>Targa Max</td><td>Quizalofop-P-etil</td><td>gyomirtó szer</td><td>magrol kelő egy- és kétszikű gyomok</td></tr>
-            <tr><td>Verimark</td><td>ciántraniliprol</td><td>rovarölő szer</td><td>tripszek, üvegházi molytetű</td></tr>
+            <thead>
+            <tr><th id="nev">Növényvédőszer neve</th><th id="ai">Hatóanyag neve</th><th id="type">Szer rendeltetése</th><th id="pest">Károsító</th><th id="price">Ár</th></tr>
+            </thead>
+            <tbody>
+            <tr><td headers="nev">Trichoplus fürkészdarázs</td><td headers="ai">Trichogramma evanescens, T. pintoi</td><td headers ="type">makroszervezet</td><td headers ="pest">gyapottok-bagolylepke</td><td headers="price">4800</td></tr>
+            <tr><td headers="nev">Naturalis-L</td><td headers="ai">Beauveria bassiana</td><td headers ="type">biológiai rovarölőszer</td><td headers ="pest">liszteske, takácsatka, üvegházi molytetű</td><td headers="price">2500</td></tr>
+            <tr><td headers="nev">Trianum P</td><td headers="ai">Trichoderma harzianum </td><td headers ="type">gombaölő csávázószer</td><td headers ="pest">palántadőlés</td><td headers="price">3700</td></tr>
+            <tr><td headers="nev">Contans WG</td><td headers="ai">Coniothyrium minitans</td><td headers ="type">gombaölő szer</td><td headers ="pest">fehérpenész</td><td headers="price">2100</td></tr>
+            <tr><td headers="nev">Taegro</td><td headers="ai">Bacillus amyloliquefaciens FZB24 törzs</td><td headers ="type">gombaölő szer</td><td headers ="pest">lisztharmat, szürkepenész</td><td headers="price">9900</td></tr>
+            <tr><td headers="nev">V-10</td><td headers="ai">Pepino mosaic virus strain CH2 isolate 1906</td><td headers ="type">gombaölő szer</td><td headers ="pest">vírusok</td><td headers="price">10000</td></tr>
+            <tr><td headers="nev">Koppert Natupol poszméh</td><td headers="ai">Bombus terrestris</td><td headers ="type">makroszervezet</td><td headers ="pest">megporzás elősegítése</td><td headers="price">1500</td></tr>
+            <tr><td headers="nev">Koppert ragadozó katicabogár</td><td headers="ai">Adalia bipuctata</td><td headers ="type">makroszervezet</td><td headers ="pest">levéltetvek</td><td headers="price">6700</td></tr>
+            <tr><td headers="nev">Koppert ragadozó fonálférgek</td><td headers="ai"></td><td headers ="type">rovarölő szer</td><td headers ="pest">Paradicsommoly (Tuta absoluta)</td><td headers="price">3200</td></tr>
+            <tr><td headers="nev">BIOBEST ENCARSIA</td><td headers="ai">Encarsia formosa</td><td headers ="type">makroszervezet</td><td headers ="pest">üvegházi molytetű</td><td headers="price">5700</td></tr>
+            <tr><td headers="nev">BIOBEST MACROLOPHUS</td><td headers="ai">Macrolophus pygmaeus</td><td headers ="type">biológiai rovarölőszer</td><td headers ="pest">takácsatkák, üvegházi molytetű</td><td headers="price">3100</td></tr>
+            <tr><td headers="nev">Bioline fürkészdarázs II.</td><td headers="ai">Trichogramma brassicae</td><td headers ="type">makroszervezet</td><td headers ="pest">gyapottok-bagolylepke</td><td headers="price">9800</td></tr>
+            <tr><td headers="nev">Targa Max</td><td headers="ai">Quizalofop-P-etil</td><td headers ="type">gyomirtó szer</td><td headers ="pest">magrol kelő egy- és kétszikű gyomok</td><td headers="price">7500</td></tr>
+            <tr><td headers="nev">Verimark</td><td headers="ai">ciántraniliprol</td><td headers ="type">rovarölő szer</td><td headers ="pest">tripszek, üvegházi molytetű</td><td headers="price">6300</td></tr>
+            </tbody>
         </table>
         </div>
         </article>
         <article>
             <h2>Ragadozó poloska akció!</h2>
             <p>Tekintsék meg videónkat, hogy ragadozó poloskáink hogyan pusztítják el az üvegházi molytetű álcáit!</p>
-            <p>Rendeljen, ma! Ingyenes házhozszállítás! Rendkívüli kedvezmény! <span style="color:red">Csak 1000 Ft/tasak!</span></p>
-            <iframe width="853" height="480" src="https://www.youtube.com/embed/bVlZSkd5W0I" title="Biological control of whitefly - Macrolophus pygmaeus" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <p>Rendeljen, ma! Ingyenes házhozszállítás! Rendkívüli kedvezmény! <br><span style="color:red;font-weight:bold">Csak 1000 Ft/tasak!</span></p>
+            <iframe width="853" height="480" src="https://www.youtube.com/embed/bVlZSkd5W0I" title="Biological control of whitefly - Macrolophus pygmaeus" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </article>
         </main>
     </div>

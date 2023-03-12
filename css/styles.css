@@ -95,10 +95,16 @@ main p::first-letter {
     font-size: xx-large;
 }
 
+/* styles for tables */
 table, th, tr, td {
     border: 1px solid black;
     border-collapse: collapse;
-    padding: 1vw;
+    padding: 5px;
+}
+
+/*to scroll tables horizontally on small devices*/
+.tableOverflow {
+    overflow-x: auto;
 }
 
 main fieldset {
@@ -181,9 +187,29 @@ aside h2, legend {
     padding: 1vw;
 }
 
+/*settings for print the pages */
+@media print {
+    p { font-size: 12pt;
+        font-family: "Eras Medium ITC"}            /* font-size of paragraphs and it is a TTF font family!*/
+    header, .footer, aside, iframe, form, .navigation { display: none; }   /* hiding elements */
+    .tableOverflow { overflow: unset} /*switch of table overflow to print tables*/
+    td {page-break-after: avoid;} /*avoid to break tables in the middle when printing */
+    h1, h2, h3 { page-break-after: avoid; } /* avoid page brakes after headings */
+    table {font-size: 10pt;}
+    article, table {
+        width:100%!important;
+        padding:0!important;
+        margin:0!important;
+    }
+   /* source of codes: https://sympli.io/blog/a-quick-guide-to-css-for-printable-webpages
+                        https://okt.inf.szte.hu/webtervezes/gyakorlat/fejezet5/ */
+    @page { margin: 0.7cm; /* margins for sheets to print */}
 
-/*Media Queries for responsive design */
-/* For mobile phones: */
+}
+
+/*Media Queries for responsive design
+* For mobile phones:
+* source of code: https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
 
 [class*="col-"] {
     width: 100%;

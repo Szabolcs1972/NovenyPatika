@@ -40,6 +40,7 @@ body {
 .navigation {
     position: sticky;
     top: 0;
+
 /* not to be covered by css effect int the case of smart phones, set z-index to 100*/
     z-index: 100;
 }
@@ -49,6 +50,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 li {
     position:relative;
     bottom:.6em;
@@ -84,7 +86,9 @@ a:link{
     color: blue;
     font-weight: bold;
 }
-
+li:active {
+    color: red;
+}
 
 /*
 .navigation a {
@@ -198,6 +202,53 @@ h2 {
     display: none;
 }
 
+/* The animation1 code */
+@keyframes anima1 {
+    0%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: yellowgreen;}
+    100% {background-color: white;}
+}
+
+/* The element to apply the animation to */
+#animation1 {
+    text-align: center;
+    padding: 1vw;
+    color: red;
+    font-weight: bold;
+    background-color: red;
+    animation-name: anima1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+img {
+    animation: fadein 4s;
+}
+
+@keyframes fadein {
+    from { opacity: 0}
+    to   { opacity: 1}
+}
+/* button to order Encarsia */
+#encarsiaButton {
+    margin: auto;
+    width: 50%;
+    justify-content: center;
+}
+
+button {
+    padding: 3vw;
+    margin: auto;
+    text-align: center;
+    background-color: #fefbaf;
+    border-radius: 1vw;
+}
+
+button:hover {
+    background-color: mediumpurple;
+}
+
 /* styles for aside, takes 4-columns space from 12 */
 .aside {
     background-color: lightslategrey;
@@ -253,7 +304,7 @@ aside h2, legend {
     width: 100%;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 630px) {
     /* For tablets: */
     .col-s-1 {width: 8.33%;}
     .col-s-2 {width: 16.66%;}
@@ -269,7 +320,7 @@ aside h2, legend {
     .col-s-12 {width: 100%;}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1200px) {
     /* For desktop: */
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}

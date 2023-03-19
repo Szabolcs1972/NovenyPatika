@@ -30,9 +30,28 @@ body {
 
 
 #header {
-    background-color: darkgreen;
     color: white;
-    padding: 3vw;
+    padding-top: 5vw;
+    padding-bottom: 7vw;
+
+}
+.slider{
+    background-color: #8ab0e7;
+    background-image: url("../pics/rozsa-2.jpg");
+    background-image-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+    animation: slide 60s infinite;
+}
+
+@keyframes slide {
+    0%   {background-image: url("/pics/rozsa-2.jpg");}
+    20%  {background-image: url("/pics/gerbera_2.jpg");}
+    40%  {background-image: url("/pics/oszibarack_2.jpg");}
+    60% {background-image: url("/pics/fupaprika_2.jpg");}
+    80% {background-image: url("/pics/paradicsom_2.jpg");}
+    100% {background-image: url("/pics/rozsa-2.jpg");}
 }
 
 /* styles for navigation buttons, 3-column wide */
@@ -89,38 +108,6 @@ a:link{
 li:active {
     color: red;
 }
-
-/*
-.navigation a {
-    text-decoration: none;
-}
-
-.navigation a:link, a:visited {
-    color: black;
-    font-weight: bold;
-}
-
-.navigation a:hover, a:active {
-    color: red;
-}
-
-.navigation li{
-    padding: 8px;
-    margin-bottom: 7px;
-    background-color: greenyellow;
-    color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    border-radius: 1vw;
-}
-
-.navigation li:hover {
-    background-color: yellow;
-}
-
-.navigation li.active, a.active {
-    background-color: white;
-}
-*/
 
 /* styles for main area, takes 5-columns from 12 */
 .logo {

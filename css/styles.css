@@ -63,7 +63,7 @@ body {
 /* not to be covered by css effect int the case of smart phones, set z-index to 100*/
     z-index: 100;
 }
-
+/*menu button handling*/
 .navigation ul{
     list-style-type: none;
     margin: 0;
@@ -81,7 +81,7 @@ li {
 li >a{
     color: black;
 }
-
+/*menu button style*/
 a{
     padding: 8px;
     margin-bottom: 7px;
@@ -94,18 +94,18 @@ a{
     display: inline-block;
     width: 100%;
 }
-
 a:hover, a:active {
     background-color: yellow;
     color: red;
-
 }
-
 a:link{
     color: blue;
     font-weight: bold;
 }
-li:active {
+
+
+a.activePage {
+    background-color: yellow;
     color: red;
 }
 

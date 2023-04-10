@@ -1,3 +1,148 @@
+<?php
+//include CUSTOMER CLASS
+include_once 'php/customer.php';
+
+// READ USER DATAFILE
+$users = [];
+
+$file = fopen("customer.txt","r");
+
+/* $i = 0;
+$egy = unserialize(fgets($file)); */
+
+while (!feof($file)) {
+        $users[] = unserialize(fgets($file));
+        //print_r(unserialize(fgets($file)));
+        //print $i;
+        //$i++;
+}
+
+fclose($file);
+
+//print_r($users);
+
+// REGISTRATION
+$error = "";                    // registration error message
+$isFormOK = true;               // form is ready to save
+
+
+if (isset($_POST['registration'])) {   // registration button has been pressed
+    if (!isset($_POST['fullName']) || trim($_POST['fullName']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtad meg a nevedet!<br>";
+    }
+    if (!isset($_POST['user']) || trim($_POST['user']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtál meg felhasználó nevet!<br>";
+    }
+    if (!isset($_POST['pw']) || trim($_POST['pw']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtál meg jelszót!<br>";
+    }
+    if (!isset($_POST['pwAgain']) || trim($_POST['pwAgain']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Ismételd meg a jelszót!!<br>";
+    }
+    if ($_POST['pw'] !== $_POST['pwAgain']) {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> A két jelszó nem egyezik meg!<br>";
+    }
+    if (!isset($_POST['birth']) || $_POST['birth'] === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtad meg a születési dátumot!<br>";
+    }
+    if (!isset($_POST['email']) || trim($_POST['email']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtál meg e-mail cimet!!<br>";
+    }
+
+    //somehow we have a last empty line in the array of the Customer objects after the read of the file
+    //don't try to apply Customer class functions, it is causing Fatal error...
+    for ($j = 0; $j < (count($users) - 1); $j++) {
+        if ($_POST['user'] === $users[$j]->getUser()) {
+            $isFormOK = false;
+            $error .= "<strong>Hiba!</strong> Ez a felhasználónév már létezik!<br>";
+            break;
+        } elseif ($_POST['email'] === $users[$j]->getEmail()) {
+            $isFormOK = false;
+            $error .= "<strong>Hiba!</strong> Ez az email cím már létezik!<br>";
+            break;
+        }
+    }
+
+
+    ($isFormOK) ? $error .= "A regisztráció rendben van!" : $error .= "A regisztráció sikertelen!";
+    if ($isFormOK) {
+
+        $path = "pics/" . $_FILES['avatar']['name'];
+
+        if ($_FILES['avatar']['name'] !== "" && in_array("image", $_FILES['avatar'])) {
+            echo "Az image";
+            if (move_uploaded_file($_FILES['avatar']['tmp_name'], $path)) {
+                echo "A fájl sikeresen átmozgatásra került!";
+            } else {
+                echo "Hiba történt a fájl átmozgatása során!";
+            }
+        }
+        //session_start($_POST);
+        $customer = new customer($_POST['fullName'], $_POST['user'], password_hash($_POST['pw'], PASSWORD_DEFAULT), $_POST['birth'], $_POST['email'], $_POST['firm'], $_POST['area'], $path, $_POST['comment']);
+        $file = fopen("customer.txt", "a");
+        fwrite($file, serialize($customer) . "\n");
+        fclose($file);
+    }
+
+
+}
+// LOGIN
+$isUserNameOK = false;
+$isEmailOK = false;
+$isPassWordOK = false;
+$loginError = "";
+
+if (isset($_POST['login'])) {
+    //somehow we have a last empty line in the array of the Customer objects after the read of the file
+    //don't try to apply Customer class functions, it is causing Fatal error...
+    if ($_POST['username'] !== "") {
+        if ($_POST['email'] !== "") {
+            if ($_POST['passwd'] !== "") {
+
+        for ($j = 0; $j < (count($users) - 1); $j++) {
+            if ($_POST['username'] === $users[$j]->getUser()) {
+                $isUserNameOK = true;
+                if (password_verify($_POST['passwd'],$users[$j]->getPw())) {
+                    $isPassWordOK = true;
+                    if ($_POST['email'] === $users[$j]->getEmail()) {
+                        $isEmailOK = true;
+                        $loginError .= "<strong>Rendben!</strong> Bejelentkeztél!<br>";
+                        header("Location: /php/login.php");
+
+                    }
+
+                }
+
+            }
+
+        }
+        if (!$isUserNameOK) $loginError .= "<strong>Hiba!</strong> Nem megfelelő a felhasználónév!<br>";
+        if (!$isPassWordOK) $loginError .= "<strong>Hiba!</strong> Nem megfelelő a jelszó!<br>";
+        if (!$isEmailOK) $loginError .= "<strong>Hiba!</strong> Nem megfelelő az e-mail cím!<br>";
+
+            } else {
+                $loginError .= "<strong>Hiba!</strong> Nem írtad be a jelszavadat!<br>";
+            }
+    } else {
+        $loginError .= "<strong>Hiba!</strong> Nem írtad be az email címedet!<br>";
+    }
+
+} else {
+        $loginError .= "<strong>Hiba!</strong> Nem írtad be a felhasználónevedet!<br>";
+    }
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -105,7 +250,7 @@
     <p>novenypatika@novenypatika.eu</p>
 
     <h2>Jelentkezz be, vagy regisztrálj!</h2>
-    <form action="*" method="post">
+    <form action="" method="post">
         <fieldset>
             <legend>Bejelentkezés:</legend>
             <label for="username">Felhasználó név:</label><br/>
@@ -116,24 +261,31 @@
             <input type="password" id="passwd" name="passwd"/><br/><br/>
             <input type="submit" name="login" value="Bejelentkezés"/>
         </fieldset>
+        <?php echo $loginError;
+        /*
+        print "<pre>";
+        print_r($_POST);
+        print_r($_FILES);
+        print "</pre>";*/
+        ?>
     </form>
 
         <br/><br/><hr/><br/>
-    <form action="*" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Regisztráció</legend>
-            <label for="full-name">Név:</label><br/>
-            <input type="text" id="full-name" name="full-name" size="20"/><br/><br/>
+            <label for="fullName">Név:</label><br/>
+            <input type="text" id="fullName" name="fullName" size="20" value="<?php if (isset($_POST['fullName'])) echo $_POST['fullName'];?>"/><br/><br/>
             <label for="user">Felhasználónév:</label><br/>
-            <input type="text" id="user" name="user" required/><br/><br/>
+            <input type="text" id="user" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user'];?>"/><br/><br/>
             <label for="pw">Jelszó:</label><br/>
-            <input type="password" id="pw" name="pw" required/><br/><br/>
-            <label for="re-pw">Jelszó ismét:</label><br/>
-            <input type="password" id="re-pw" name="passwd-check" required/><br/><br/>
+            <input type="password" id="pw" name="pw" value="<?php if (isset($_POST['pw'])) echo $_POST['pw'];?>"/><br/><br/>
+            <label for="pwAgain">Jelszó ismét:</label><br/>
+            <input type="password" id="pwAgain" name="pwAgain" value="<?php if (isset($_POST['pwAgain'])) echo $_POST['pwAgain'];?>"/><br/><br/>
             <label for="birth">Születési dátum:</label><br/>
-            <input type="date" id="birth" name="date-of-birth" min="1910-01-01"/><br/><br/>
+            <input type="date" id="birth" name="birth" min="1910-01-01" value="<?php if (isset($_POST['birth'])) echo $_POST['birth'];?>"/><br/><br/>
             <label for="mail">E-mail:</label><br/>
-            <input type="email" id="mail" name="email" required/><br/><br/>
+            <input type="email" id="mail" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'];?>"/><br/><br/>
 
 
         <label for="education">Növényvédelmi végzettség:</label><br/>
@@ -162,7 +314,7 @@
             <input type="number" id="area" name="area"/><br/><br/>
             <br/><br/><hr/><br/>
         <label>Vásárlási engedély feltöltése:</label><br/><br/>
-        <input type="file" name="licence-pic"/><br/><br/>
+        <input type="file" name="avatar"/><br/><br/>
 
         <label for="comment">Megjegyzés<br/>(max. 150 karakter):</label> <br/>
         <textarea id="comment" name="comment" maxlength="150"></textarea> <br/>
@@ -170,6 +322,13 @@
         <input type="reset" name="reset-btn" value="Adatok törlése"/>
         <input type="submit" name="registration" value="Regisztráció"/>
         </fieldset>
+        <?php echo $error;
+        /*
+        print "<pre>";
+        print_r($_POST);
+        print_r($_FILES);
+        print "</pre>"; */
+        ?>
     </form>
     </aside>
 </div>

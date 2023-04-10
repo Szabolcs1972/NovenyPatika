@@ -4,17 +4,16 @@ include_once 'php/customer.php';
 
 // READ USER DATAFILE
 $users = [];
-
 $file = fopen("customer.txt","r");
 
 /* $i = 0;
 $egy = unserialize(fgets($file)); */
 
 while (!feof($file)) {
-        $users[] = unserialize(fgets($file));
-        //print_r(unserialize(fgets($file)));
-        //print $i;
-        //$i++;
+    $users[] = unserialize(fgets($file));
+    //print_r(unserialize(fgets($file)));
+    //print $i;
+    //$i++;
 }
 
 fclose($file);
@@ -84,9 +83,9 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
                 echo "Hiba történt a fájl átmozgatása során!";
             }
         }
-        //session_start($_POST);
+
         $customer = new customer($_POST['fullName'], $_POST['user'], password_hash($_POST['pw'], PASSWORD_DEFAULT), $_POST['birth'], $_POST['email'], $_POST['firm'], $_POST['area'], $path, $_POST['comment']);
-        $file = fopen("customer.txt", "a");
+        $file = fopen('php/customer.txt', "a");
         fwrite($file, serialize($customer) . "\n");
         fclose($file);
     }
@@ -114,6 +113,8 @@ if (isset($_POST['login'])) {
                     if ($_POST['email'] === $users[$j]->getEmail()) {
                         $isEmailOK = true;
                         $loginError .= "<strong>Rendben!</strong> Bejelentkeztél!<br>";
+                        session_start();
+                        $_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$_POST['avatar']];
                         header("Location: /php/login.php");
 
                     }
@@ -207,7 +208,7 @@ if (isset($_POST['login'])) {
         </section>
         <article>
         <h2>Növényvédőszer kereső</h2>
-        <form action="*" method="post">
+        <form action="" method="post">
             <fieldset>
             <!--
                 <legend>Növényvédőszer kereső</legend>
@@ -313,7 +314,7 @@ if (isset($_POST['login'])) {
             <label for="area">Gazdaság mérete (ha):</label><br/>
             <input type="number" id="area" name="area"/><br/><br/>
             <br/><br/><hr/><br/>
-        <label>Vásárlási engedély feltöltése:</label><br/><br/>
+        <label>Profilkép feltöltése:</label><br/><br/>
         <input type="file" name="avatar"/><br/><br/>
 
         <label for="comment">Megjegyzés<br/>(max. 150 karakter):</label> <br/>

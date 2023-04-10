@@ -257,6 +257,14 @@ button:hover {
 }
 
 /* styles for aside, takes 4-columns space from 12 */
+
+/*responsive profile pics */
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
 .aside {
     background-color: lightslategrey;
     padding: 1vw;

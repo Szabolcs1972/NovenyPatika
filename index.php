@@ -1,24 +1,22 @@
 <?php
-//include CUSTOMER CLASS
+//include CUSTOMER CLASS & php to read DATA file customer.txt
 include_once 'php/customer.php';
+include_once 'php/readDatafile.php';
 
-// READ USER DATAFILE
-$users = [];
-$file = fopen("customer.txt","r");
+//get data of the users, we call getData() function with different path of customer.txt as parameter
+$users = getData("customer.txt");
 
-/* $i = 0;
-$egy = unserialize(fgets($file)); */
-
-while (!feof($file)) {
-    $users[] = unserialize(fgets($file));
-    //print_r(unserialize(fgets($file)));
-    //print $i;
-    //$i++;
-}
-
-fclose($file);
-
+//some service codes, to see what's happening :)
+//--------------------------------------------------
 //print_r($users);
+
+/*
+for ($i = 0; $i < (count($users)-1); $i++) {
+    print $users[$i]->getUser()."<br>";
+    //print "<p>" . $i . "</p><br>";
+}
+*/
+//---------------------------------------------------
 
 // REGISTRATION
 $error = "";                    // registration error message
@@ -70,28 +68,34 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
     }
 
 
-    ($isFormOK) ? $error .= "A regisztráció rendben van!" : $error .= "A regisztráció sikertelen!";
+    ($isFormOK) ? $error .= "A regisztráció rendben van!<br>" : $error .= "A regisztráció sikertelen!<br>";
     if ($isFormOK) {
 
         $path = "pics/" . $_FILES['avatar']['name'];
 
         if ($_FILES['avatar']['name'] !== "" && in_array("image", $_FILES['avatar'])) {
-            echo "Az image";
+
             if (move_uploaded_file($_FILES['avatar']['tmp_name'], $path)) {
-                echo "A fájl sikeresen átmozgatásra került!";
+                $error .= "A fájl sikeresen átmozgatásra került!<br>";
             } else {
-                echo "Hiba történt a fájl átmozgatása során!";
+                $error .= "Hiba történt a fájl átmozgatása során!<br>";
             }
         }
 
         $customer = new customer($_POST['fullName'], $_POST['user'], password_hash($_POST['pw'], PASSWORD_DEFAULT), $_POST['birth'], $_POST['email'], $_POST['firm'], $_POST['area'], $path, $_POST['comment']);
-        $file = fopen('php/customer.txt', "a");
+        try {
+            $file = fopen('customer.txt', "a");
+        } catch (Exception $exception) {
+            $error .= $exception.getMessage()."<br>";
+        }
+
         fwrite($file, serialize($customer) . "\n");
         fclose($file);
     }
 
 
 }
+
 // LOGIN
 $isUserNameOK = false;
 $isEmailOK = false;
@@ -106,15 +110,16 @@ if (isset($_POST['login'])) {
             if ($_POST['passwd'] !== "") {
 
         for ($j = 0; $j < (count($users) - 1); $j++) {
+            //$loginError .= $users[$j]->getUser()."<br>";
             if ($_POST['username'] === $users[$j]->getUser()) {
                 $isUserNameOK = true;
                 if (password_verify($_POST['passwd'],$users[$j]->getPw())) {
                     $isPassWordOK = true;
                     if ($_POST['email'] === $users[$j]->getEmail()) {
                         $isEmailOK = true;
-                        $loginError .= "<strong>Rendben!</strong> Bejelentkeztél!<br>";
+
                         session_start();
-                        $_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$_POST['avatar']];
+                        $_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$users[$j]->getAvatar(),3=>$j];
                         header("Location: /php/login.php");
 
                     }
@@ -255,20 +260,20 @@ if (isset($_POST['login'])) {
         <fieldset>
             <legend>Bejelentkezés:</legend>
             <label for="username">Felhasználó név:</label><br/>
-            <input type="text" id="username" name="username"/><br/><br/>
+            <input type="text" id="username" name="username" value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>"/><br/><br/>
             <label for="email">E-mail cím:</label><br/>
-            <input type="email" id="email" name="email"/><br/><br/>
+            <input type="email" id="email" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'];?>"/><br/><br/>
             <label for="passwd">Jelszó:</label><br/>
             <input type="password" id="passwd" name="passwd"/><br/><br/>
             <input type="submit" name="login" value="Bejelentkezés"/>
         </fieldset>
-        <?php echo $loginError;
+        <p class="error"><?php echo $loginError;
         /*
         print "<pre>";
         print_r($_POST);
         print_r($_FILES);
         print "</pre>";*/
-        ?>
+            ?></p>
     </form>
 
         <br/><br/><hr/><br/>
@@ -323,13 +328,13 @@ if (isset($_POST['login'])) {
         <input type="reset" name="reset-btn" value="Adatok törlése"/>
         <input type="submit" name="registration" value="Regisztráció"/>
         </fieldset>
-        <?php echo $error;
+        <p class="error"><?php echo $error;
         /*
         print "<pre>";
         print_r($_POST);
         print_r($_FILES);
         print "</pre>"; */
-        ?>
+            ?></p>
     </form>
     </aside>
 </div>

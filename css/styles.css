@@ -264,6 +264,11 @@ button:hover {
     width: 100%;
     height: auto;
 }
+/* style for error messages */
+.error {
+   color: yellow;
+   font-weight: bold;
+}
 
 .aside {
     background-color: lightslategrey;

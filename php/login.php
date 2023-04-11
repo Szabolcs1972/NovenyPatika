@@ -1,29 +1,137 @@
 <?php
-$message = "Sikeres bejelentkezés!"."<br>";
 session_start();
-include_once 'customer.php';
 
-// READ USER DATAFILE
-$users = [];
-$file = fopen("customer.txt","r");
+/* INFORMATION - the values of $_SESSION array from index.php
+//$_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$users[$j]->getAvatar(),3=>$j];
+*/
 
-/* $i = 0;
-$egy = unserialize(fgets($file)); */
+//number of the logged-in user in the $users[] array, it is easier to write...
+$userNumber = $_SESSION['user'][3];
+//print $userNumber;
 
-while (!feof($file)) {
-    $users[] = unserialize(fgets($file));
-    //print_r(unserialize(fgets($file)));
-    //print $i;
-    //$i++;
-}
+//print the number of the user in the data file, if you would like to see
+//$message = "Sikeres bejelentkezés!".$_SESSION['user'][3]."<br>";
 
-fclose($file);
+//$message variable to display some messages for the user
+$message = "Sikeres bejelentkezés!"."<br>";
 
+//$error variable to display error messages
+$error = "";
+
+//print $_SESSION values to check or see
 //print_r($_SESSION);
-$profilePicPath = $_SESSION['user'][2];
-if ($profilePicPath == "") $profilePicPath = "../pics/nobody.jpg";
+
+//include CUSTOMER CLASS & php to read DATA file customer.txt
+include_once 'customer.php';
+include_once 'readDatafile.php';
+
+//get data of the users, we call getData() function with different path as parameter
+//the path of customer.txt is different from here
+
+$users = getData("../customer.txt");
+//print_r($users);
+//print $users[$userNumber]->getUser();
+
+
+//$profilePicPath is storing the path for profile pictures
+$profilePicPath = "../".$_SESSION['user'][2];
+
+//if you would like to see the variable....
+//$message .= $profilePicPath;
+
+//if no profile picture has been selected, we use nobody.jpg as default
+//profile picture path string should be longer than 5 characters of "/pics"
+
+if (strlen($_SESSION['user'][2]) < 6) $profilePicPath = "../pics/nobody.jpg";
 //$profilePicPath = "../pics/nobody.jpg";
 //$message .= $profilePicPath;
+
+
+//MODIFY USER DATA AND PROFILE IMAGE
+$isFormOK = true;
+$isModifyOK = false;
+
+if (isset($_POST['modify'])) {   //modify button has been pressed
+
+    if (!isset($_POST['user']) || trim($_POST['user']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtad meg a felhasználó nevet, vagy az új felhasználó nevedet!<br>";
+    }
+    if (!isset($_POST['pw']) || trim($_POST['pw']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtál meg jelszót, vagy az új jelszavad!<br>";
+    }
+    if (!isset($_POST['pwAgain']) || trim($_POST['pwAgain']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Ismételd meg a jelszót!<br>";
+    }
+    if ($_POST['pw'] !== $_POST['pwAgain']) {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> A két jelszó nem egyezik meg!<br>";
+    }
+    if (!isset($_POST['email']) || trim($_POST['email']) === "") {
+        $isFormOK = false;
+        $error .= "<strong>Hiba!</strong> Nem adtad meg az új, vagy a régi e-mail cimedet!!<br>";
+    }
+
+    //to modify the username
+        if ($_POST['user'] !== $users[$userNumber]->getUser()) {
+            $users[$userNumber]->setUser($_POST['user']);
+            $isModifyOK = true;
+            $message .= "A felhasználónév módosult!<br>";
+
+        }
+    //to modify the password
+    if (!password_verify($_POST['pw'],$users[$userNumber]->getPw()) && !password_verify($_POST['pwAgain'],$users[$userNumber]->getPw())) {
+        $users[$userNumber]->setPw(password_hash($_POST['pw'], PASSWORD_DEFAULT));
+        $isModifyOK = true;
+        $message .= "A jelszó módosult!<br>";
+
+    }
+
+    //to modify the email
+    if ($_POST['email'] !== $users[$userNumber]->getEmail()) {
+        $users[$userNumber]->setEmail($_POST['email']);
+        $isModifyOK = true;
+        $message .= "Az email cím módosult!<br>";
+
+    }
+
+
+
+    ($isFormOK) ? $error .= "Az adatok rendben vannak!" : $error .= "Az adatok hibásak!";
+    if ($isFormOK) {
+
+        $path = "../pics/" . $_FILES['avatar']['name'];
+
+        if ($_FILES['avatar']['name'] !== "" && in_array("image", $_FILES['avatar']) && $_FILES['avatar']['name'] !==  $users[$userNumber]->getAvatar()) {
+
+            if (move_uploaded_file($_FILES['avatar']['tmp_name'], $path)) {
+                $users[$userNumber]->setAvatar($path);
+                $message .= "A profil képedet kicseréltük!<br>";
+                $isModifyOK = true;
+            } else {
+                $error .= "Hiba történt a fájl átmozgatása során!<br>";
+            }
+        }
+        if ($isModifyOK) {
+            try {
+                $file = fopen('../customer.txt', "w");
+            } catch (Exception $exception) {
+                $error .= $exception.getMessage()."<br>";
+            }
+            for ($i = 0; $i < (count($users)-1); $i++) {
+                fwrite($file,serialize($users[$i]) . "\n");
+            }
+
+            fclose($file);
+        }
+    }
+
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,23 +180,29 @@ if ($profilePicPath == "") $profilePicPath = "../pics/nobody.jpg";
                 <img src="<?php echo $profilePicPath;?>" width=100% height=auto>
                 </div>
                 <div class="aside">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <fieldset>
                         <legend>Felhasználói adatok módosítása:</legend>
                         <label for="username">Új felhasználó név:</label><br/>
-                        <input type="text" id="username" name="username" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
+                        <input type="text" id="username" name="user" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
                         <label for="email">E-mail cím:</label><br/>
                         <input type="email" id="email" name="email" value="<?php print $_SESSION['user'][1];?>"/><br/><br/>
                         <label for="passwd">Jelszó:</label><br/>
-                        <input type="password" id="passwd" name="passwd"/><br/><br/>
+                        <input type="password" id="passwd" name="pw"/><br/><br/>
                         <label for="pwAgain">Jelszó ismét:</label><br/>
                         <input type="password" id="pwAgain" name="pwAgain"/><br/><br/>
                         <label>Profilkép feltöltése:</label><br/><br/>
-                        <label>Jelenlegi kép: <?php print $_SESSION['user'][2];?></label><br/><br/>
+                        <label>A jelenlegi profil képed: <?php print $_SESSION['user'][2];?></label><br/><br/>
                         <input type="file" name="avatar"/><br/><br/>
-                        <input type="submit" name="login" value="Módosítás!"/>
+                        <input type="submit" name="modify" value="Módosítás!"/>
                     </fieldset>
-
+                    <p class="error"><?php echo $error;
+                    /*
+                    print "<pre>";
+                    print_r($_POST);
+                    print_r($_FILES);
+                    print "</pre>";*/
+                    ?></p>
                 </form>
 
                 </div>

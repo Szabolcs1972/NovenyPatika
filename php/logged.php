@@ -1,5 +1,7 @@
 <?php
 session_start();
+//prevent go back after logout
+if (!isset($_SESSION['user'])) header("Location: ../index.php");
 
 /* INFORMATION - the values of $_SESSION array from index.php
 //$_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$users[$j]->getAvatar(),3=>$j];
@@ -130,6 +132,46 @@ if (isset($_POST['modify'])) {   //modify button has been pressed
 
 
 }
+if (isset($_POST['delete'])) {   //delete user button has been pressed
+    $users[$userNumber]->setFullName("");
+    $users[$userNumber]->setUser("");
+    $users[$userNumber]->setPw("");
+    $users[$userNumber]->setBirth("");
+    $users[$userNumber]->setEmail("");
+    $users[$userNumber]->setFirm("");
+    $users[$userNumber]->setArea("");
+    $users[$userNumber]->setAvatar("");
+    $users[$userNumber]->setComment("");
+
+    try {
+        $file = fopen('../customer.txt', "w");
+    } catch (Exception $exception) {
+        $error .= $exception.getMessage()."<br>";
+    }
+    for ($i = 0; $i < (count($users)-1); $i++) {
+        fwrite($file,serialize($users[$i]) . "\n");
+    }
+
+    fclose($file);
+
+    unset($users);
+    unset($_SESSION['user']);
+    session_unset();
+    session_destroy();
+    header("Location: ../index.php");
+
+}
+
+if (isset($_POST['quit'])) {   //quit button has been pressed
+    //print $message .= "Kijelentkezés gomb aktív"."<br>";
+    //print $error .= "Kijelentkezés gomb aktív"."<br>";
+
+    unset($users);
+    unset($_SESSION['user']);
+    session_unset();
+    session_destroy();
+    header("Location: ../index.php");
+}
 
 
 ?>
@@ -194,7 +236,7 @@ if (isset($_POST['modify'])) {   //modify button has been pressed
                         <label>Profilkép feltöltése:</label><br/><br/>
                         <label>A jelenlegi profil képed: <?php print $_SESSION['user'][2];?></label><br/><br/>
                         <input type="file" name="avatar"/><br/><br/>
-                        <input type="submit" name="modify" value="Módosítás!"/>
+                        <input type="submit" name="modify" value="Fiók adatainak módosítása"/>
                     </fieldset>
                     <p class="error"><?php echo $error;
                     /*
@@ -204,7 +246,43 @@ if (isset($_POST['modify'])) {   //modify button has been pressed
                     print "</pre>";*/
                     ?></p>
                 </form>
-
+                <hr/>
+                    <form action="" method="post">
+                        <fieldset>
+                            <legend>Felhasználói fiók törlése:</legend>
+                            <label for="username">Felhasználó név:</label><br/>
+                            <input type="text" id="username" name="user" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
+                            <label for="email">E-mail cím:</label><br/>
+                            <input type="email" id="email" name="email" value="<?php print $_SESSION['user'][1];?>"/><br/><br/>
+                            <label for="passwd">Jelszó:</label><br/>
+                            <input type="password" id="passwd" name="pw"/><br/><br/>
+                            <label for="pwAgain">Jelszó ismét:</label><br/>
+                            <input type="password" id="pwAgain" name="pwAgain"/><br/><br/>
+                            <input type="submit" name="delete" value="Fiók törlése"/>
+                        </fieldset>
+                        <p class="error"><?php echo $error;
+                            /*
+                            print "<pre>";
+                            print_r($_POST);
+                            print_r($_FILES);
+                            print_r($users[$userNumber]);
+                            print "</pre>";*/
+                            ?></p>
+                    </form>
+                    <hr/>
+                    <form action="" method="post">
+                        <fieldset>
+                            <legend>Kijelentkezés:</legend>
+                            <input type="submit" name="quit" value="Kijelentkezés"/>
+                        </fieldset>
+                        <p class="error"><?php echo $error;
+                            /*
+                            print "<pre>";
+                            print_r($_POST);
+                            print_r($_FILES);
+                            print "</pre>";*/
+                            ?></p>
+                    </form>
                 </div>
             </aside>
         </div>

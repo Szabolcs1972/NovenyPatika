@@ -120,7 +120,7 @@ if (isset($_POST['login'])) {
 
                         session_start();
                         $_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$users[$j]->getAvatar(),3=>$j];
-                        header("Location: /php/login.php");
+                        header("Location: /php/logged.php");
 
                     }
 
@@ -225,7 +225,7 @@ if (isset($_POST['login'])) {
                     <option value="rose">Rózsa</option>
                     <option value="tomato" selected>Paradicsom</option>
                 </select>
-                <br/><hr/>
+                <hr/>
                 <span id="radio-pesticides">Szerek típusa:</span><br/>
                 <label for="fungicid">Gombaölőszer</label>
                 <input type="radio" id="fungicid" name="fungicid" value="fungicid"/><br/>
@@ -259,11 +259,11 @@ if (isset($_POST['login'])) {
     <form action="" method="post">
         <fieldset>
             <legend>Bejelentkezés:</legend>
-            <label for="username">Felhasználó név:</label><br/>
+            <label for="username">Felhasználó név (*):</label><br/>
             <input type="text" id="username" name="username" value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>"/><br/><br/>
-            <label for="email">E-mail cím:</label><br/>
+            <label for="email">E-mail cím (*):</label><br/>
             <input type="email" id="email" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'];?>"/><br/><br/>
-            <label for="passwd">Jelszó:</label><br/>
+            <label for="passwd">Jelszó (*):</label><br/>
             <input type="password" id="passwd" name="passwd"/><br/><br/>
             <input type="submit" name="login" value="Bejelentkezés"/>
         </fieldset>
@@ -276,21 +276,21 @@ if (isset($_POST['login'])) {
             ?></p>
     </form>
 
-        <br/><br/><hr/><br/>
+        <hr/>
     <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Regisztráció</legend>
             <label for="fullName">Név:</label><br/>
             <input type="text" id="fullName" name="fullName" size="20" value="<?php if (isset($_POST['fullName'])) echo $_POST['fullName'];?>"/><br/><br/>
-            <label for="user">Felhasználónév:</label><br/>
+            <label for="user">Felhasználónév (*):</label><br/>
             <input type="text" id="user" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user'];?>"/><br/><br/>
-            <label for="pw">Jelszó:</label><br/>
+            <label for="pw">Jelszó (*):</label><br/>
             <input type="password" id="pw" name="pw" value="<?php if (isset($_POST['pw'])) echo $_POST['pw'];?>"/><br/><br/>
-            <label for="pwAgain">Jelszó ismét:</label><br/>
+            <label for="pwAgain">Jelszó ismét (*):</label><br/>
             <input type="password" id="pwAgain" name="pwAgain" value="<?php if (isset($_POST['pwAgain'])) echo $_POST['pwAgain'];?>"/><br/><br/>
-            <label for="birth">Születési dátum:</label><br/>
+            <label for="birth">Születési dátum (*):</label><br/>
             <input type="date" id="birth" name="birth" min="1910-01-01" value="<?php if (isset($_POST['birth'])) echo $_POST['birth'];?>"/><br/><br/>
-            <label for="mail">E-mail:</label><br/>
+            <label for="mail">E-mail (*):</label><br/>
             <input type="email" id="mail" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'];?>"/><br/><br/>
 
 

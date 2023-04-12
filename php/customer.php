@@ -56,7 +56,7 @@ class customer
     /**
      * @return mixed
      */
-    public function getUser() : String
+    public function getUser()
     {
         return $this->user;
     }

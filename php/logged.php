@@ -14,9 +14,6 @@ $userNumber = $_SESSION['user'][3];
 //print the number of the user in the data file, if you would like to see
 //$message = "Sikeres bejelentkezés!".$_SESSION['user'][3]."<br>";
 
-//$message variable to display some messages for the user
-$message = "Sikeres bejelentkezés!"."<br>";
-
 //$error variable to display error messages
 $error = "";
 
@@ -35,25 +32,31 @@ $users = getData("../customer.txt");
 //print $users[$userNumber]->getUser();
 
 
-//$profilePicPath is storing the path for profile pictures
-$profilePicPath = "../".$_SESSION['user'][2];
+//$message variable to display some messages for the user
+$message = "Sikeres bejelentkezés!<br>".$users[$userNumber]->getUser()."<br>";
 
-//if you would like to see the variable....
-//$message .= $profilePicPath;
 
-//if no profile picture has been selected, we use nobody.jpg as default
-//profile picture path string should be longer than 5 characters of "/pics"
+//generate profile picture path array for all customer
 
-if (strlen($_SESSION['user'][2]) < 6) $profilePicPath = "../pics/nobody.jpg";
-//$profilePicPath = "../pics/nobody.jpg";
-//$message .= $profilePicPath;
+$profilePicPaths = [];
+for ($k = 0; $k < (count($users)-1) ; $k++) {
+
+    //if no profile picture has been selected, we use nobody.jpg as default
+    //profile picture path string should be longer than 5 characters of "/pics"
+
+    if (strlen($users[$k]->getAvatar() === "pics/")) $profilePicPaths[$k] = "../pics/nobody.jpg";
+    else {
+        $profilePicPaths[$k] = "../".$users[$k]->getAvatar();
+    }
+}
+
 
 
 //MODIFY USER DATA AND PROFILE IMAGE
 $isFormOK = true;
 $isModifyOK = false;
 
-if (isset($_POST['modify'])) {   //modify button has been pressed
+if (isset($_POST['modify']) && ($_POST['modify'] === "Fiók adatainak módosítása")) {   //modify button has been pressed
 
     if (!isset($_POST['user']) || trim($_POST['user']) === "") {
         $isFormOK = false;
@@ -106,11 +109,21 @@ if (isset($_POST['modify'])) {   //modify button has been pressed
 
         $path = "../pics/" . $_FILES['avatar']['name'];
 
-        if ($_FILES['avatar']['name'] !== "" && in_array("image", $_FILES['avatar']) && $_FILES['avatar']['name'] !==  $users[$userNumber]->getAvatar()) {
+        /*
+        $message .= $path."<br>";
+        $message .= $_FILES['avatar']['name']."<br>";
+        str_contains($_FILES['avatar']['type'],"image") ? $message .= "Igaz<br>" : $message.= "Hamis<br>";
+        ($_FILES['avatar']['name'] !==  $users[$userNumber]->getAvatar()) ? $message .= "Igaz<br>" : $message.= "Hamis<br>";
+         */
+
+        if ($_FILES['avatar']['name'] !== "" && str_contains($_FILES['avatar']['type'],"image") && $_FILES['avatar']['name'] !==  $users[$userNumber]->getAvatar()) {
+            $message .= "Igaz"."<br>";
+
 
             if (move_uploaded_file($_FILES['avatar']['tmp_name'], $path)) {
+                $message .= "Ez is igaz"."<br>";
                 $users[$userNumber]->setAvatar($path);
-                $message .= "A profil képedet kicseréltük!<br>";
+                $message .= "A profil képedet kicseréltük! (A következő bejelentkezésnél látszik!)<br>";
                 $isModifyOK = true;
             } else {
                 $error .= "Hiba történt a fájl átmozgatása során!<br>";
@@ -127,21 +140,17 @@ if (isset($_POST['modify'])) {   //modify button has been pressed
             }
 
             fclose($file);
+            $message .= "A fájl bezárása megtörtént!<br>";
         }
     }
 
 
 }
-if (isset($_POST['delete'])) {   //delete user button has been pressed
-    $users[$userNumber]->setFullName("");
-    $users[$userNumber]->setUser("");
-    $users[$userNumber]->setPw("");
-    $users[$userNumber]->setBirth("");
-    $users[$userNumber]->setEmail("");
-    $users[$userNumber]->setFirm("");
-    $users[$userNumber]->setArea("");
-    $users[$userNumber]->setAvatar("");
-    $users[$userNumber]->setComment("");
+if (isset($_POST['delete']) && ($_POST['delete'] === "Fiók törlése")) {   //delete user button has been pressed
+    //remove the customer object from the $users array
+    array_splice($users,$userNumber,1);
+
+    //save
 
     try {
         $file = fopen('../customer.txt', "w");
@@ -162,7 +171,7 @@ if (isset($_POST['delete'])) {   //delete user button has been pressed
 
 }
 
-if (isset($_POST['quit'])) {   //quit button has been pressed
+if (isset($_POST['quit']) && ($_POST['quit'] === "Kijelentkezés")) {   //quit button has been pressed
     //print $message .= "Kijelentkezés gomb aktív"."<br>";
     //print $error .= "Kijelentkezés gomb aktív"."<br>";
 
@@ -194,20 +203,31 @@ if (isset($_POST['quit'])) {   //quit button has been pressed
     <h1>Növénypatika</h1>
 </div>
 
-    <div class="col-6 col-s-8">
+<div class="row">
+    <div class="col-8 col-s-8">
         <main>
             <section>
-                <h2 id="elso">Rendelés</h2>
-                <p>Morbi pretium tincidunt suscipit. Integer non felis neque. Ut posuere facilisis ligula sed ullamcorper. Ut tempor sit amet ipsum vestibulum tincidunt. Etiam fringilla tincidunt lectus, sit amet maximus eros accumsan vitae. Nullam sit amet dictum nibh. Phasellus mollis venenatis nulla, a porta ligula molestie nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec commodo, elit nec auctor sollicitudin, lacus lectus placerat velit, id sodales nulla dolor molestie nibh. Sed elit orci, iaculis vitae justo eget, consectetur ullamcorper dolor. Donec massa quam, finibus sit amet magna vel, tincidunt rhoncus mi. Integer bibendum ac nibh non dapibus. Curabitur sollicitudin imperdiet libero, id condimentum dolor facilisis eget. Cras eget placerat elit. Curabitur non turpis nec neque pulvinar consectetur. Etiam hendrerit ante eget viverra dapibus.</p>
-                <p>Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>
+                <h2 id="elso">Felhasználók</h2>
+               <table>
+                   <thead><tr><th>Sorszám</th><th>Felhasználónév</th><th>E-mail</th><th>Profilkép</th><th>Megjegyzés</th></tr></thead>
+                   <tbody>
+                   <?php
+                   for ($j = 0; $j < (count($users)-1); $j++) {
+                       print "<tr><td>".$j."</td><td>".$users[$j]->getUser()."</td><td>".$users[$j]->getEmail()."</td><td><img src='".$profilePicPaths[$j]."' width='80%' height='auto'></td><td>".$users[$j]->getComment()."</td></tr>";
+                   }
 
-                <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
+                   ?>
+                   </tbody>
+               </table>
             </section>
 
         </main>
     </div>
 
-    <div class="col-6 col-s-4">
+
+
+
+    <div class="col-4 col-s-4">
         <div class="aside">
             <aside>
                 <h2>Profilom</h2>
@@ -218,56 +238,49 @@ if (isset($_POST['quit'])) {   //quit button has been pressed
                 print_r($_FILES);
                 print "</pre>";*/
                 ?>
-                <div class="responsive"></div>
-                <img src="<?php echo $profilePicPath;?>" width=100% height=auto>
-                </div>
-                <div class="aside">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <fieldset>
-                        <legend>Felhasználói adatok módosítása:</legend>
-                        <label for="username">Új felhasználó név:</label><br/>
-                        <input type="text" id="username" name="user" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
-                        <label for="email">E-mail cím:</label><br/>
-                        <input type="email" id="email" name="email" value="<?php print $_SESSION['user'][1];?>"/><br/><br/>
-                        <label for="passwd">Jelszó:</label><br/>
-                        <input type="password" id="passwd" name="pw"/><br/><br/>
-                        <label for="pwAgain">Jelszó ismét:</label><br/>
-                        <input type="password" id="pwAgain" name="pwAgain"/><br/><br/>
-                        <label>Profilkép feltöltése:</label><br/><br/>
-                        <label>A jelenlegi profil képed: <?php print $_SESSION['user'][2];?></label><br/><br/>
-                        <input type="file" name="avatar"/><br/><br/>
-                        <input type="submit" name="modify" value="Fiók adatainak módosítása"/>
-                    </fieldset>
-                    <p class="error"><?php echo $error;
-                    /*
-                    print "<pre>";
-                    print_r($_POST);
-                    print_r($_FILES);
-                    print "</pre>";*/
-                    ?></p>
-                </form>
-                <hr/>
+                <div>
+                    <div class="responsive">
+                    <img src="<?php echo $profilePicPaths[$userNumber];?>" width=50% height=auto>
+                    </div>
+                    <div class="aside">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <fieldset>
+                            <legend>Felhasználói adatok módosítása:</legend>
+                            <label for="username">Új/régi felhasználó név (*):</label><br/>
+                            <input type="text" id="username" name="user" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
+                            <label for="email">Új/régi e-mail cím (*):</label><br/>
+                            <input type="email" id="email" name="email" value="<?php print $_SESSION['user'][1];?>"/><br/><br/>
+                            <label for="passwd">Új/régi jelszó (*):</label><br/>
+                            <input type="password" id="passwd" name="pw"/><br/><br/>
+                            <label for="pwAgain">Új/régi jelszó ismét (*):</label><br/>
+                            <input type="password" id="pwAgain" name="pwAgain"/><br/><br/>
+                            <label>Profilkép feltöltése:</label><br/><br/>
+                            <label>A jelenlegi profil képed: <?php print $_SESSION['user'][2];?></label><br/><br/>
+                            <input type="file" name="avatar"/><br/><br/>
+                            <input type="submit" name="modify" value="Fiók adatainak módosítása"/>
+                            </fieldset>
+                            <p class="error"><?php echo $error;
+                            /*
+                             print "<pre>";
+                            print_r($_POST);
+                            print_r($_FILES);
+                            print "</pre>";*/
+                            ?></p>
+                        </form>
+                        <hr/>
                     <form action="" method="post">
                         <fieldset>
                             <legend>Felhasználói fiók törlése:</legend>
-                            <label for="username">Felhasználó név:</label><br/>
+                            <label for="username">Felhasználó név (*):</label><br/>
                             <input type="text" id="username" name="user" value="<?php print $_SESSION['user'][0];?>"/><br/><br/>
-                            <label for="email">E-mail cím:</label><br/>
+                            <label for="email">E-mail cím (*):</label><br/>
                             <input type="email" id="email" name="email" value="<?php print $_SESSION['user'][1];?>"/><br/><br/>
-                            <label for="passwd">Jelszó:</label><br/>
+                            <label for="passwd">Jelszó (*):</label><br/>
                             <input type="password" id="passwd" name="pw"/><br/><br/>
-                            <label for="pwAgain">Jelszó ismét:</label><br/>
+                            <label for="pwAgain">Jelszó ismét (*):</label><br/>
                             <input type="password" id="pwAgain" name="pwAgain"/><br/><br/>
                             <input type="submit" name="delete" value="Fiók törlése"/>
                         </fieldset>
-                        <p class="error"><?php echo $error;
-                            /*
-                            print "<pre>";
-                            print_r($_POST);
-                            print_r($_FILES);
-                            print_r($users[$userNumber]);
-                            print "</pre>";*/
-                            ?></p>
                     </form>
                     <hr/>
                     <form action="" method="post">
@@ -275,25 +288,19 @@ if (isset($_POST['quit'])) {   //quit button has been pressed
                             <legend>Kijelentkezés:</legend>
                             <input type="submit" name="quit" value="Kijelentkezés"/>
                         </fieldset>
-                        <p class="error"><?php echo $error;
-                            /*
-                            print "<pre>";
-                            print_r($_POST);
-                            print_r($_FILES);
-                            print "</pre>";*/
-                            ?></p>
                     </form>
                 </div>
             </aside>
         </div>
     </div>
+
 </div>
 
-<div class="footer">
+    <div class="footer">
     Kulcsszavak: <b>rovarok</b>, <b>betegségek</b>, <b>növényvédő szerek</b>
     <br/>
     <span>Lovai & Szlávik, 2023<br/> CC0 1.0</span>
-</div>
+    </div>
 
 
 

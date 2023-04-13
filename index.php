@@ -73,7 +73,7 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
 
         $path = "pics/" . $_FILES['avatar']['name'];
 
-        if ($_FILES['avatar']['name'] !== "" && in_array("image", $_FILES['avatar'])) {
+        if ($_FILES['avatar']['name'] !== "" && str_contains($_FILES['avatar']['type'],"image")) {
 
             if (move_uploaded_file($_FILES['avatar']['tmp_name'], $path)) {
                 $error .= "A fájl sikeresen átmozgatásra került!<br>";

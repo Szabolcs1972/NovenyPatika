@@ -70,6 +70,28 @@ for ($k = 0; $k < (count($users)-1) ; $k++) {
     }
 }
 
+//load data for product search form
+try {
+    $file = fopen('../priceList.txt', "r");
+} catch (Exception $exception) {
+    $error .= $exception.getMessage()."<br>";
+}
+
+$i=0;
+
+while (!feof($file)) {
+
+    $row = fgets($file);
+    //print $row."<br>";
+    $data[$i] = explode(";",$row);
+    $i++;
+
+}
+
+fclose($file);
+
+$searchResult = [];
+//print_r($data);
 
 
 //MODIFY USER DATA AND PROFILE IMAGE
@@ -268,8 +290,32 @@ if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Ment
 
 
 
+
 }
 
+
+if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
+
+    //print_r($_POST)."<br>";
+
+
+
+    foreach($data as $row) {
+
+        if (($_POST['crop'] == "tomato") && $row[0] == "Paradicsom" && $_POST['radio'] == "insecticid" && str_contains($row[3],"rovar")) $searchResult[] = $row;
+        if (($_POST['crop'] == "tomato") && $row[0] == "Paradicsom" && $_POST['radio'] == "fungicid" && str_contains($row[3],"gomba")) $searchResult[] = $row;
+        if (($_POST['crop'] == "rose") && $row[0] == "Rózsa" && $_POST['radio'] == "insecticid" && str_contains($row[3],"rovar")) $searchResult[] = $row;
+        if (($_POST['crop'] == "rose") && $row[0] == "Rózsa" && $_POST['radio'] == "fungicid" && str_contains($row[3],"gomba")) $searchResult[] = $row;
+        if (($_POST['crop'] == "redpepper") && $row[0] == "Fűszerpaprika" && $_POST['radio'] == "insecticid" && str_contains($row[3],"rovar")) $searchResult[] = $row;
+        if (($_POST['crop'] == "redpepper") && $row[0] == "Fűszerpaprika" && $_POST['radio'] == "fungicid" && str_contains($row[3],"gomba")) $searchResult[] = $row;
+        if (($_POST['crop'] == "peach") && $row[0] == "Őszibarack" && $_POST['radio'] == "insecticid" && str_contains($row[3],"rovar")) $searchResult[] = $row;
+        if (($_POST['crop'] == "peach") && $row[0] == "Őszibarack" && $_POST['radio'] == "fungicid" && str_contains($row[3],"gomba")) $searchResult[] = $row;
+        if (($_POST['crop'] == "gerbera") && $row[0] == "Gerbera" && $_POST['radio'] == "insecticid" && str_contains($row[3],"rovar")) $searchResult[] = $row;
+        if (($_POST['crop'] == "gerbera") && $row[0] == "Gerbera" && $_POST['radio'] == "fungicid" && str_contains($row[3],"gomba")) $searchResult[] = $row;
+    }
+
+
+}
 
 ?>
 
@@ -333,7 +379,24 @@ if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Ment
                    </tbody>
                </table>
             </section>
+            <section>
+                <h2>Növényvédőszer keresés eredménye:</h2>
+                <table>
+                    <thead><tr><th>Kultúra</th><th>Növényvédőszer neve</th><th>Hatóanyag neve</th><th>Szer rendeltetése</th><th>Károsító</th><th>Ár</th></tr></thead>
+                    <tbody>
+                    <?php
 
+                    foreach($searchResult as $row) {
+
+
+                        //print the Users table
+                        print "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[5]."</td></tr>";
+
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </section>
         </main>
     </div>
 
@@ -419,6 +482,31 @@ if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Ment
                             print "</pre>";*/
                             ?>
                         </form>
+
+                            <form action="" method="post">
+                                <fieldset>
+                                    <legend>Növényvédőszer kereső</legend>
+                                    <label for="crop" id="crop-label">Kultúra:</label><br/>
+                                    <select name="crop" id="crop">
+                                        <option value="redpepper">Fűszerpaprika</option>
+                                        <option value="peach">Őszibarack</option>
+                                        <option value="rose">Rózsa</option>
+                                        <option value="gerbera">Gerbera</option>
+                                        <option value="tomato" selected>Paradicsom</option>
+                                    </select>
+                                    <hr/>
+                                    <span id="radio-pesticides">Szerek típusa:</span><br/>
+                                    <label for="fungicid">Gombaölőszer</label>
+                                    <input type="radio" id="fungicid" name="radio" value="fungicid"/><br/>
+                                    <label for="insecticid">Rovarölőszer</label>
+                                    <input type="radio" id="insecticid" name="radio" value="insecticid" checked/><br/>
+                                    <hr/>
+                                    <input type="submit" name="szerkereso" value="Keres"/>
+
+                                </fieldset>
+                            </form>
+                        </article>
+
                     <form action="" method="post">
                         <fieldset>
                             <legend>Kijelentkezés:</legend>

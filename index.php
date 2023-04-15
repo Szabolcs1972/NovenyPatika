@@ -223,34 +223,6 @@ if (isset($_POST['login'])) {
         <p>Mauris lobortis facilisis finibus. Mauris efficitur purus diam, eu mollis augue sodales et. Sed id turpis eros. Fusce non imperdiet orci. Suspendisse at sagittis metus. In orci purus, varius varius feugiat ut, faucibus et lectus. Cras ante felis, ultricies sed vehicula et, ultricies ac sem.</p>
         </section>
         <article>
-        <h2>Növényvédőszer kereső</h2>
-        <form action="" method="post">
-            <fieldset>
-            <!--
-                <legend>Növényvédőszer kereső</legend>
-            -->
-                <label for="crop" id="crop-label">Kultúra:</label><br/>
-                <select name="crop" id="crop">
-                    <option value="redpepper">Fűszerpaprika</option>
-                    <option value="peach">Őszibarack</option>
-                    <option value="rose">Rózsa</option>
-                    <option value="tomato" selected>Paradicsom</option>
-                </select>
-                <hr/>
-                <span id="radio-pesticides">Szerek típusa:</span><br/>
-                <label for="fungicid">Gombaölőszer</label>
-                <input type="radio" id="fungicid" name="fungicid" value="fungicid"/><br/>
-                <label for="insecticid">Rovarölőszer</label>
-                <input type="radio" id="insecticid" name="insecticid" value="insecticid" checked/><br/>
-                <label for="herbicid">Gyomirtószer</label>
-                <input type="radio" id="herbicid" name="herbicid" value="herbicid"/> <br/>
-                <hr/>
-                <input type="submit" name="szerkereso" value="Keres"/>
-
-            </fieldset>
-        </form>
-        </article>
-        <article>
             <h2>Ctamsclart</h2>
             <p>Morbi pretium tincidunt suscipit. Integer non felis neque. Ut posuere facilisis ligula sed ullamcorper. Ut tempor sit amet ipsum vestibulum tincidunt. Etiam fringilla tincidunt lectus, sit amet maximus eros accumsan vitae. Nullam sit amet dictum nibh. Phasellus mollis venenatis nulla, a porta ligula molestie nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec commodo, elit nec auctor sollicitudin, lacus lectus placerat velit, id sodales nulla dolor molestie nibh. Sed elit orci, iaculis vitae justo eget, consectetur ullamcorper dolor. Donec massa quam, finibus sit amet magna vel, tincidunt rhoncus mi. Integer bibendum ac nibh non dapibus. Curabitur sollicitudin imperdiet libero, id condimentum dolor facilisis eget. Cras eget placerat elit. Curabitur non turpis nec neque pulvinar consectetur. Etiam hendrerit ante eget viverra dapibus.</p>
             <p>Duis at interdum eros. Aliquam vel magna vehicula est tincidunt tristique quis ut odio. Morbi viverra consectetur tristique. Maecenas ut arcu ante. Praesent tempor, justo quis egestas tincidunt, odio mi sodales nibh, eget accumsan sem magna id arcu. Curabitur eu aliquet nunc. Phasellus et velit turpis. Sed placerat eros eu urna cursus bibendum. Aenean venenatis lacinia orci, eu ullamcorper nisi commodo vel. Maecenas ut condimentum mauris.</p>

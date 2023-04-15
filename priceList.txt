@@ -1,0 +1,41 @@
+Fűszerpaprika;Cuprosan 50 WP;Réz-oxiklorid;gombaölő szer;baktériumos betegségek, gombás betegségek (kivéve lisztharmat);9600
+Fűszerpaprika;Cuprozin 35 WP;Réz-oxiklorid;gombaölő szer;baktériumos betegségek, gombás betegségek (kivéve lisztharmat);5500
+Fűszerpaprika;Maxim 480 FS;Fludioxonil;gombaölő csávázószer;csírakori betgségek;3600
+Fűszerpaprika;Signum WG;Boszkalid, Piraklostrobin;gombaölő szer;alternária, fehér penész, szürke penész, lisztharmat, levélfoltosságok, palántadőlés;29500
+Őszibarack;Afinto;flonikamid;rovarölőszer, atkaölő szer;levéltetvek;2325
+Őszibarack;Alfa Solo;difenokonazol;gombaölő szer;levélfodrosodás, levéllyukacsosodás, lisztharmat;8963
+Őszibarack;Bomber;teflutrin;talajfertőtlenítő szer;cserebogár pajor, drótférgek, talajlakó kártevők;74123
+Őszibarack;Gazelle 20 SP;acetamiprid;rovarölőszer, atkaölő szer;levéltetvek, molyok, pajzstetvek, rágó és szívó kártevők;7600
+Őszibarack;Hunter;Lambda-cihalotrin;rovarölőszer, atkaölő szer;levéltetvek, molyok, amerikai fehér medvelepker;8900
+Őszibarack;Pediment 50 WG;pirimikarb;rovarölő szer, atkaölő szer;levéltetvek;3400
+Őszibarack;Vegesol eReS;kén, növényi olaj, Réz-hidroxid;gombaölő szer;baktériumos és gombás ágelhalások, levélfodrosodás, levéllyukacsosodás, lisztharmat;5400
+Őszibarack;Zöld Réz;növényi olaj, réz-hidroxid;gombaölő szer;baktériumos és gombás ágelhalások, levélfodrosodás,levéllyukacsosodás;8752
+Rózsa;Abamect SC;abamektin;rovarölő szer, atkaölő szer;atkák, tripszek;	2100
+Rózsa;Bactospeine WG;Bacillus thuringiensis ssp. kurstaki;rovarölő szer, atkaölő szer;lombrágó hernyók;3500
+Rózsa;Dual Gold 960 EC;	S-metolaklór;gyomirtószer;magról kelő egyszikű gyomok;6900
+Rózsa;Fleet;Metaldehid;csigaölő szer;meztelen csigák;8100
+Rózsa;Flosul;kén;	gombaölő szer;lisztharmat;7300
+Rózsa;Flovine 80 WDG;folpet;gombaölő szer;szirom foltosság, szürkepenész;8500
+Rózsa;Force 1,5 G;teflutrin;talajfertőtlenítő szer;cserebogár pajor, drótférgek, talajlakó kártevők;9900
+Rózsa;Forester;faggyú;vadriasztó szer;őz, szarvas;2100
+Rózsa;Nissorun 10 WP;hexitiazox;rovarölő szer,atkaölő szer;közönséges takácsatka;3700
+Rózsa;Nordox 75 WDG;Réz-oxid;gombaölő szer;levélbetegségek,rózsa rozsda;9900
+Gerbera;Abamect SC;abamektin;	rovarölő szer, atkaölő szer;gerbera aknázólégy, tripszek, üvegházi molytetű;2500
+Gerbera;Apacs 50 WG;klotianidin;rovarölő szer, atkaölő szer;nyugati virágtripsz, üvegházi molytetű;600
+Gerbera;Bactospeine WG;	Bacillus thuringiensis ssp. kurstaki;rovarölő szer, atkaölő szer;gyapottok-bagolylepke, lombrágó hernyók;3300
+Gerbera;Biobest encarsia;Encarsia formosa;makroszervezet;üvegházi molytetű;88000
+Gerbera;Biobest Macrolophus;Virágpoloskák;rovarölő szer, atkaölő szer;bagolylepkék, takácsatkák, üvegházi molytetű;7500
+Paradicsom;Trichoplus fürkészdarázs;Trichogramma evanescens, T. pintoi;makroszervezet;gyapottok-bagolylepke;4800
+Paradicsom;Naturalis-L;Beauveria bassiana;biológiai rovarölőszer;liszteske, takácsatka, üvegházi molytetű;2500
+Paradicsom;Trianum P;Trichoderma harzianum;gombaölő csávázószer;palántadőlés;3700
+Paradicsom;Contans WG;Coniothyrium minitans;gombaölő szer;fehérpenész;2100
+Paradicsom;Taegro;Bacillus amyloliquefaciens FZB24 törzs;gombaölő szer;	lisztharmat, szürkepenész;9900
+Paradicsom;V-10;	Pepino mosaic virus strain CH2 isolate 1906;gombaölő szer;vírusok;10000
+Paradicsom;Koppert Natupol poszméh;Bombus terrestris;	makroszervezet;megporzás elősegítése;1500
+Paradicsom;Koppert ragadozó katicabogár;Adalia bipuctata;makroszervezet;levéltetvek;6700
+Paradicsom;Koppert;ragadozó fonálférgek;rovarölő szer;Paradicsommoly (Tuta absoluta);3200
+Paradicsom;BIOBEST ENCARSIA;	Encarsia formosa;	makroszervezet;üvegházi molytetű;5700
+Paradicsom;BIOBEST MACROLOPHUS;Macrolophus pygmaeus;biológiai rovarölőszer;takácsatkák, üvegházi molytetű;3100
+Paradicsom;Bioline fürkészdarázs II.;Trichogramma brassicae;makroszervezet;gyapottok-bagolylepke;9800
+Paradicsom;Targa Max;Quizalofop-P-etil;gyomirtó szer;magrol kelő egy- és kétszikű gyomok;7500
+Paradicsom;Verimark;ciántraniliprol;rovarölő szer;tripszek, üvegházi molytetű;6300

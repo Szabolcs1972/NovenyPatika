@@ -91,6 +91,17 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
 
         fwrite($file, serialize($customer) . "\n");
         fclose($file);
+
+        // write the visibility of the new customer to the visibility.txt file
+        try {
+            $file = fopen('visibility.txt', "a");
+        } catch (Exception $exception) {
+            $error .= $exception.getMessage()."<br>";
+        }
+
+        fwrite($file,serialize("1,1,1,1") . "\n");
+        fclose($file);
+
     }
 
 

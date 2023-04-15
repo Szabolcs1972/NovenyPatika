@@ -17,12 +17,32 @@ $userNumber = $_SESSION['user'][3];
 //$error variable to display error messages
 $error = "";
 
+//$save - show message to save profile visibility settings
+$save = "";
+
 //print $_SESSION values to check or see
 //print_r($_SESSION);
 
 //include CUSTOMER CLASS & php to read DATA file customer.txt
 include_once 'customer.php';
 include_once 'readDatafile.php';
+
+// variables to display visible user information according to settings in visibility.txt
+$userNameTable = "";
+$userEmailTable = "";
+$userProfilePicTable = "";
+$userCommentTable = "";
+
+//load visibility information according to settings of the users from visibility.txt
+//we call getData() function of readDatafile.php
+
+$visibilitySettings = getData("../visibility.txt");
+
+foreach ($visibilitySettings as $visible) {
+    //print $visible."<br>";
+    $getVisibilitySettings[] = explode(",",$visible);
+}
+//print_r($visibilitySettings);
 
 //get data of the users, we call getData() function with different path as parameter
 //the path of customer.txt is different from here
@@ -182,6 +202,74 @@ if (isset($_POST['quit']) && ($_POST['quit'] === "Kijelentkezés")) {   //quit b
     header("Location: ../index.php");
 }
 
+if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Mentés")) {   //
+    /*
+    print $message .= "A Mentés gombot megnyomták! ".$userNumber."<br>";
+    print_r($_POST)."<br>";
+    print "<br>";
+    //print $error .= "Kijelentkezés gomb aktív"."<br>";
+
+    print "before"."<br>";
+
+    print_r($getVisibilitySettings[$userNumber]);
+    print "<br>";
+     */
+
+    if (isset($_POST['visibleUserName']) && ($_POST['visibleUserName'] == "true")) {
+        //print "visibleUsername - átadva"."<br>";
+        //print "<br>";
+        $getVisibilitySettings[$userNumber][0] = 1;
+    } else {$getVisibilitySettings[$userNumber][0] = 0;}
+
+    if (isset($_POST['visibleEmail']) && ($_POST['visibleEmail']  == "true")) {
+        //print "visibleEmail - átadva"."<br>";
+        //print "<br>";
+        $getVisibilitySettings[$userNumber][1] = 1;
+    } else {$getVisibilitySettings[$userNumber][1] = 0;}
+
+    if (isset($_POST['visibleProfilePic']) && ($_POST['visibleProfilePic']  == "true")) {
+        //print "visibleProfilePics - átadva"."<br>";
+        //print "<br>";
+        $getVisibilitySettings[$userNumber][2] = 1;
+    } else {$getVisibilitySettings[$userNumber][2] = 0;}
+
+    if (isset($_POST['visibleComment']) && ($_POST['visibleComment']) == "true") {
+        //print "visibleComment - átadva"."<br>";
+        //print "<br>";
+        $getVisibilitySettings[$userNumber][3] = 1;
+    } else {$getVisibilitySettings[$userNumber][3] = 0;}
+
+    /*
+    print_r($getVisibilitySettings[$userNumber]);
+    print "<br>";
+    print "after"."<br>";
+    */
+
+   //save
+
+   try {
+       $file = fopen('../visibility.txt', "w");
+   } catch (Exception $exception) {
+       $error .= $exception.getMessage()."<br>";
+   }
+   for ($i = 0; $i < count($users)-1; $i++) {
+
+       fwrite($file,serialize(implode(",",$getVisibilitySettings[$i])) . "\n");
+   }
+
+
+
+   fclose($file);
+    $save .= "A beállításaidat mentettük!"."<br>";
+    $save .= ($getVisibilitySettings[$userNumber][0] == 1) ? "A felhasználó neved: Látható"."<br>" : "A felhasználó neved: Nem látható"."<br>";
+    $save .= ($getVisibilitySettings[$userNumber][1] == 1) ? "Az e-mail címed: Látható"."<br>" : "Az e-mail címed: Nem látható"."<br>";
+    $save .= ($getVisibilitySettings[$userNumber][2] == 1) ? "A profil képed: Látható"."<br>" : "A profil képed: Nem látható"."<br>";
+    $save .= ($getVisibilitySettings[$userNumber][3] == 1) ? "A megjegyzésed: Látható"."<br>" : "A megjegyzésed: Nem látható"."<br>";
+
+
+
+}
+
 
 ?>
 
@@ -212,8 +300,33 @@ if (isset($_POST['quit']) && ($_POST['quit'] === "Kijelentkezés")) {   //quit b
                    <thead><tr><th>Sorszám</th><th>Felhasználónév</th><th>E-mail</th><th>Profilkép</th><th>Megjegyzés</th></tr></thead>
                    <tbody>
                    <?php
+
+                   //get visibility settings of users to display in the Users table
                    for ($j = 0; $j < (count($users)-1); $j++) {
-                       print "<tr><td>".$j."</td><td>".$users[$j]->getUser()."</td><td>".$users[$j]->getEmail()."</td><td><img src='".$profilePicPaths[$j]."' width='80%' height='auto'></td><td>".$users[$j]->getComment()."</td></tr>";
+
+                       if ($getVisibilitySettings[$j][0] == 1) {
+                           $userNameTable = $users[$j]->getUser();
+                       } else {$userNameTable = "";}
+                       if ($getVisibilitySettings[$j][1] == 1) {
+                           $userEmailTable = $users[$j]->getEmail();
+                       } else {$userEmailTable = "";}
+                       if ($getVisibilitySettings[$j][2] == 1) {
+                           $userProfilePicTable = $profilePicPaths[$j];
+                       }  else {$userProfilePicTable = "";}
+                       if ($getVisibilitySettings[$j][3] == 1) {
+                           $userCommentTable = $users[$j]->getComment();
+                       } else {$userCommentTableTable = "";}
+
+                       /*
+                       ($getVisibilitySettings[$j][0] == 1) ? print "Igaz"."<br>" : print "Hamis"."<br>";
+                       ($getVisibilitySettings[$j][1] == 1) ? print "Igaz"."<br>" : print "Hamis"."<br>";
+                       ($getVisibilitySettings[$j][2] == 1) ? print "Igaz"."<br>" : print "Hamis"."<br>";
+                       ($getVisibilitySettings[$j][3] == 1) ? print "Igaz"."<br>" : print "Hamis"."<br>";
+                       print "<br>";
+                       */
+
+                       //print the Users table
+                       print "<tr><td>".$j."</td><td>".$userNameTable."</td><td>".$userEmailTable."</td><td><img src='".$userProfilePicTable."' width='80%' height='auto'></td><td>".$userCommentTable."</td></tr>";
                    }
 
                    ?>
@@ -283,6 +396,29 @@ if (isset($_POST['quit']) && ($_POST['quit'] === "Kijelentkezés")) {   //quit b
                         </fieldset>
                     </form>
                     <hr/>
+                        <hr/>
+                        <form action="" method="post">
+                            <fieldset>
+                                <legend>Adataim láthatóságának beállítása:<br>(Jelöld be, ha látni szeretnéd!)</legend>
+                                <label for="visibleUserName">Felhasználó név:</label>
+                                <input type="checkbox" id="visibleUserName" name="visibleUserName" value="true"/><br/>
+                                <label for="visibleEmail">E-mail:</label>
+                                <input type="checkbox" id="visibleEmail" name="visibleEmail" value="true"/><br/>
+                                <label for="visibleProfilePic">Profilkép:</label>
+                                <input type="checkbox" id="visibleProfilePic" name="visibleProfilePic" value="true"/><br/>
+                                <label for="visibleComment">Megjegyzés:</label>
+                                <input type="checkbox" id="visibleComment" name="visibleComment" value="true"/><br/>
+
+                                <input type="submit" name="visibilitySetting" value="Mentés"/>
+                            </fieldset>
+                            <?php echo $save;
+                            /*
+                            print "<pre>";
+                            print_r($_POST);
+                            print_r($_FILES);
+                            print "</pre>";*/
+                            ?>
+                        </form>
                     <form action="" method="post">
                         <fieldset>
                             <legend>Kijelentkezés:</legend>

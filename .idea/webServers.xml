@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ebdf42a0-e55b-46e8-a9bd-49b1dc13776e" name="XAMPP" url="http://localhost/webtervBeadando">
+        <fileTransfer mountedRoot="E:\XAMPP\htdocs\webtervBeadando" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

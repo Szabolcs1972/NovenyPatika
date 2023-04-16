@@ -46,12 +46,12 @@ body {
 }
 
 @keyframes slide {
-    0%   {background-image: url("/pics/rozsa-2.jpg");}
-    20%  {background-image: url("/pics/gerbera_2.jpg");}
-    40%  {background-image: url("/pics/oszibarack_2.jpg");}
-    60% {background-image: url("/pics/fupaprika_2.jpg");}
-    80% {background-image: url("/pics/paradicsom_2.jpg");}
-    100% {background-image: url("/pics/rozsa-2.jpg");}
+    0%   {background-image: url("../pics/rozsa-2.jpg");}
+    20%  {background-image: url("../pics/gerbera_2.jpg");}
+    40%  {background-image: url("../pics/oszibarack_2.jpg");}
+    60% {background-image: url("../pics/fupaprika_2.jpg");}
+    80% {background-image: url("../pics/paradicsom_2.jpg");}
+    100% {background-image: url("../pics/rozsa-2.jpg");}
 }
 
 /* styles for navigation buttons, 3-column wide */

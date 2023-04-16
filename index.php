@@ -3,8 +3,14 @@
 include_once 'php/customer.php';
 include_once 'php/readDatafile.php';
 
+$error = "";                    // for error messages
+
 //get data of the users, we call getData() function with different path of customer.txt as parameter
-$users = getData("customer.txt");
+try {
+$users = getData("database/customer.txt");
+} catch (Exception $exception) {
+    $error .= $exception.gettext("Sajnáljuk, az állomány nem elérhető, vagy egyéb hiba lépett fel!")."<br>";
+}
 
 //some service codes, to see what's happening :)
 //--------------------------------------------------
@@ -19,7 +25,7 @@ for ($i = 0; $i < (count($users)-1); $i++) {
 //---------------------------------------------------
 
 // REGISTRATION
-$error = "";                    // registration error message
+
 $isFormOK = true;               // form is ready to save
 
 
@@ -84,7 +90,7 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
 
         $customer = new customer($_POST['fullName'], $_POST['user'], password_hash($_POST['pw'], PASSWORD_DEFAULT), $_POST['birth'], $_POST['email'], $_POST['firm'], $_POST['area'], $path, $_POST['comment']);
         try {
-            $file = fopen('customer.txt', "a");
+            $file = fopen('database/customer.txt', "a");
         } catch (Exception $exception) {
             $error .= $exception.getMessage()."<br>";
         }
@@ -94,7 +100,7 @@ if (isset($_POST['registration'])) {   // registration button has been pressed
 
         // write the visibility of the new customer to the visibility.txt file
         try {
-            $file = fopen('visibility.txt', "a");
+            $file = fopen('database/visibility.txt', "a");
         } catch (Exception $exception) {
             $error .= $exception.getMessage()."<br>";
         }
@@ -177,7 +183,7 @@ if (isset($_POST['login'])) {
 <div id="header" class = "slider">
     <h1>Növénypatika</h1>
 </div>
-
+<p class="error"><?php echo $error;?></p>
 
 <div class="row">
     <div class="col-3 col-s-4 navigation">

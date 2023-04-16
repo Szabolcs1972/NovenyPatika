@@ -20,6 +20,9 @@ $error = "";
 //$save - show message to save profile visibility settings
 $save = "";
 
+//$sendingError - display error messages during sending
+$sendingError = "";
+
 //print $_SESSION values to check or see
 //print_r($_SESSION);
 
@@ -36,7 +39,13 @@ $userCommentTable = "";
 //load visibility information according to settings of the users from visibility.txt
 //we call getData() function of readDatafile.php
 
-$visibilitySettings = getData("../visibility.txt");
+try {
+$visibilitySettings = getData("../database/visibility.txt");
+} catch (Exception $exception) {
+    $error .= $exception.getMessage()."<br>";
+}
+
+
 
 foreach ($visibilitySettings as $visible) {
     //print $visible."<br>";
@@ -47,10 +56,14 @@ foreach ($visibilitySettings as $visible) {
 //get data of the users, we call getData() function with different path as parameter
 //the path of customer.txt is different from here
 
-$users = getData("../customer.txt");
+
+try {
+$users = getData("../database/customer.txt");
 //print_r($users);
 //print $users[$userNumber]->getUser();
-
+} catch (Exception $exception) {
+    $error .= $exception.getMessage()."<br>";
+}
 
 //$message variable to display some messages for the user
 $message = "Sikeres bejelentkezés!<br>".$users[$userNumber]->getUser()."<br>";
@@ -72,7 +85,7 @@ for ($k = 0; $k < (count($users)-1) ; $k++) {
 
 //load data for product search form
 try {
-    $file = fopen('../priceList.txt', "r");
+    $file = fopen('../database/priceList.txt', "r");
 } catch (Exception $exception) {
     $error .= $exception.getMessage()."<br>";
 }
@@ -89,10 +102,29 @@ while (!feof($file)) {
 }
 
 fclose($file);
-
+//array to store the results of product searces
 $searchResult = [];
-//print_r($data);
 
+
+//load data for messages
+$messages = [];
+try {
+    $file = fopen('../database/messages.txt', "r");
+} catch (Exception $exception) {
+    $error .= $exception.getMessage()."<br>";
+}
+
+$i=0;
+while (!feof($file)) {
+
+    $row = fgets($file);
+    //print $row."<br>";
+    $messages[$i] = explode(";",$row);
+    //print_r($messages);
+    $i++;
+}
+
+fclose($file);
 
 //MODIFY USER DATA AND PROFILE IMAGE
 $isFormOK = true;
@@ -173,7 +205,7 @@ if (isset($_POST['modify']) && ($_POST['modify'] === "Fiók adatainak módosít�
         }
         if ($isModifyOK) {
             try {
-                $file = fopen('../customer.txt', "w");
+                $file = fopen('../database/customer.txt', "w");
             } catch (Exception $exception) {
                 $error .= $exception.getMessage()."<br>";
             }
@@ -195,7 +227,7 @@ if (isset($_POST['delete']) && ($_POST['delete'] === "Fiók törlése")) {   //d
     //save
 
     try {
-        $file = fopen('../customer.txt', "w");
+        $file = fopen('../database/customer.txt', "w");
     } catch (Exception $exception) {
         $error .= $exception.getMessage()."<br>";
     }
@@ -270,7 +302,7 @@ if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Ment
    //save
 
    try {
-       $file = fopen('../visibility.txt', "w");
+       $file = fopen('../database/visibility.txt', "w");
    } catch (Exception $exception) {
        $error .= $exception.getMessage()."<br>";
    }
@@ -279,9 +311,8 @@ if (isset($_POST['visibilitySetting']) && ($_POST['visibilitySetting'] === "Ment
        fwrite($file,serialize(implode(",",$getVisibilitySettings[$i])) . "\n");
    }
 
+    fclose($file);
 
-
-   fclose($file);
     $save .= "A beállításaidat mentettük!"."<br>";
     $save .= ($getVisibilitySettings[$userNumber][0] == 1) ? "A felhasználó neved: Látható"."<br>" : "A felhasználó neved: Nem látható"."<br>";
     $save .= ($getVisibilitySettings[$userNumber][1] == 1) ? "Az e-mail címed: Látható"."<br>" : "Az e-mail címed: Nem látható"."<br>";
@@ -317,6 +348,41 @@ if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
 
 }
 
+if (isset($_POST['sendMessage']) && ($_POST['sendMessage'] === "Küldés")) {
+
+    //print_r($_POST)."<br>";
+
+    $toWhom = "";
+
+
+    for ($l = 0; $l < (count($users)-1); $l++) {
+
+        if ($_POST['user'] === $users[$l]->getUser()) {
+            $toWhom = $l;
+            break;
+        }
+
+    }
+
+    if ($toWhom === "") {
+        $sendingError .= "Nincs ilyen felhasználónk!";
+    }
+
+    try {
+        $file = fopen('../database/messages.txt', "a");
+    } catch (Exception $exception) {
+        $sendingError .= $exception.getMessage()."<br>";
+    }
+
+
+        fwrite($file,"".$userNumber.";".$l.";".$_POST['comment'] . "\n");
+
+    fclose($file);
+    $sendingError .= "Az üzit elküdtük!"."<br/>";
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -340,6 +406,34 @@ if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
 <div class="row">
     <div class="col-8 col-s-8">
         <main>
+            <section>
+            <h2>Üzenetek:</h2>
+
+               <?php
+
+               //print_r($messages);
+
+               for ($m = 0; $m < count($messages)-1; $m++) {
+
+                   //print_r($row);
+
+                   if ($messages[$m][1] == $userNumber) {
+                       print "<h5>Feladó: " . $users[$messages[$m][0]]->getUser() . "</h5>";
+                       print "<h5>Címzett: " . $users[$userNumber]->getUser() . "</h5>";
+                       print "<p>Üzenet: " . $messages[$m][2] . "</p>";
+                       print "<hr/>";
+                   }
+
+
+               }
+
+
+
+
+                ?>
+
+            </section>
+
             <section>
                 <h2 id="elso">Felhasználók</h2>
                <table>
@@ -372,7 +466,7 @@ if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
                        */
 
                        //print the Users table
-                       print "<tr><td>".$j."</td><td>".$userNameTable."</td><td>".$userEmailTable."</td><td><img src='".$userProfilePicTable."' width='80%' height='auto'></td><td>".$userCommentTable."</td></tr>";
+                       print "<tr><td>".$j."</td><td>".$userNameTable."</td><td>".$userEmailTable."</td><td><img src='".$userProfilePicTable."' width='80%' height='80%'></td><td>".$userCommentTable."</td></tr>";
                    }
 
                    ?>
@@ -414,7 +508,6 @@ if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
                 print_r($_FILES);
                 print "</pre>";*/
                 ?>
-                <div>
                     <div class="responsive">
                     <img src="<?php echo $profilePicPaths[$userNumber];?>" width=50% height=auto>
                     </div>
@@ -505,8 +598,24 @@ if (isset($_POST['szerkereso']) && ($_POST['szerkereso'] === "Keres")) {
 
                                 </fieldset>
                             </form>
-                        </article>
-
+                        <form action="" method="post">
+                            <fieldset>
+                                <legend>Üzenetküldés</legend>
+                                <label for="user">Felhasználó,<br/> akinek küldeni szeretnéd: (*):</label><br/>
+                                <input type="text" id="user" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user'];?>"/><br/><br/>
+                                <label for="comment">Üzenet<br/>(max. 150 karakter):</label> <br/>
+                                <textarea id="comment" name="comment" maxlength="150"></textarea> <br/>
+                                <hr/>
+                                <input type="submit" name="sendMessage" value="Küldés"/>
+                                <?php echo $sendingError;
+                                /*
+                                print "<pre>";
+                                print_r($_POST);
+                                print_r($_FILES);
+                                print "</pre>";*/
+                                ?>
+                            </fieldset>
+                        </form>
                     <form action="" method="post">
                         <fieldset>
                             <legend>Kijelentkezés:</legend>

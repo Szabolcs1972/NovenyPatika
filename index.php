@@ -131,7 +131,7 @@ if (isset($_POST['login'])) {
 
                         session_start();
                         $_SESSION['user'] = [0=>$_POST['username'],1=>$_POST['email'],2=>$users[$j]->getAvatar(),3=>$j];
-                        header("Location: /php/logged.php");
+                        header("Location: php/logged.php");
 
                     }
 

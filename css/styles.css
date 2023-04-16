@@ -30,9 +30,28 @@ body {
 
 
 #header {
-    background-color: darkgreen;
     color: white;
-    padding: 3vw;
+    padding-top: 5vw;
+    padding-bottom: 7vw;
+
+}
+.slider{
+    background-color: #8ab0e7;
+    background-image: url("../pics/rozsa-2.jpg");
+    background-image-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+    animation: slide 60s infinite;
+}
+
+@keyframes slide {
+    0%   {background-image: url("../pics/rozsa-2.jpg");}
+    20%  {background-image: url("../pics/gerbera_2.jpg");}
+    40%  {background-image: url("../pics/oszibarack_2.jpg");}
+    60% {background-image: url("../pics/fupaprika_2.jpg");}
+    80% {background-image: url("../pics/paradicsom_2.jpg");}
+    100% {background-image: url("../pics/rozsa-2.jpg");}
 }
 
 /* styles for navigation buttons, 3-column wide */
@@ -40,44 +59,54 @@ body {
 .navigation {
     position: sticky;
     top: 0;
+
 /* not to be covered by css effect int the case of smart phones, set z-index to 100*/
     z-index: 100;
 }
-
+/*menu button handling*/
 .navigation ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-.navigation a {
-    text-decoration: none;
+li {
+    position:relative;
+    bottom:.6em;
+    padding:0em 1em;
+    display:inline;
+
 }
 
-.navigation a:link, a:visited {
+li >a{
     color: black;
-    font-weight: bold;
 }
-
-.navigation a:hover, a:active {
-    color: red;
-}
-
-.navigation li{
+/*menu button style*/
+a{
     padding: 8px;
     margin-bottom: 7px;
     background-color: greenyellow;
-    color: #ffffff;
+    color: black;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     border-radius: 1vw;
+    text-align:center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
 }
-
-.navigation li:hover {
+a:hover, a:active {
     background-color: yellow;
+    color: red;
+}
+a:link{
+    color: blue;
+    font-weight: bold;
 }
 
-.navigation li.active, a.active {
-    background-color: white;
+
+a.activePage {
+    background-color: yellow;
+    color: red;
 }
 
 /* styles for main area, takes 5-columns from 12 */
@@ -160,7 +189,97 @@ h2 {
     display: none;
 }
 
+/* The animation1 code */
+@keyframes anima1 {
+    0%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: yellowgreen;}
+    100% {background-color: white;}
+}
+
+/* The element to apply the animation to */
+#animation1 {
+    text-align: center;
+    padding: 1vw;
+    color: red;
+    font-weight: bold;
+    background-color: red;
+    animation-name: anima1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+img {
+    animation: fadein 4s;
+}
+
+@keyframes fadein {
+    from { opacity: 0}
+    to   { opacity: 1}
+}
+
+/* for responsive iframes */
+.container-iframe {
+
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* button to order Encarsia */
+#orderEncarsia {
+    margin: auto;
+    width: 50%;
+    justify-content: center;
+}
+
+button {
+    padding: 3vw;
+    margin: auto;
+    text-align: center;
+    background-color: #fefbaf;
+    border-radius: 1vw;
+}
+
+button:hover {
+    background-color: mediumpurple;
+}
+
 /* styles for aside, takes 4-columns space from 12 */
+
+/*responsive profile pics */
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+/* style for error messages */
+.error {
+   color: yellow;
+   font-weight: bold;
+}
+
+form {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+
+}
+
+form * {
+    margin: 1vw;
+}
+
 .aside {
     background-color: lightslategrey;
     padding: 1vw;
@@ -215,7 +334,7 @@ aside h2, legend {
     width: 100%;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 630px) {
     /* For tablets: */
     .col-s-1 {width: 8.33%;}
     .col-s-2 {width: 16.66%;}
@@ -231,7 +350,7 @@ aside h2, legend {
     .col-s-12 {width: 100%;}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1200px) {
     /* For desktop: */
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}

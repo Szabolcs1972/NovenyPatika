@@ -7,38 +7,40 @@
     <meta name="description" content="Növénypatika"/>
     <meta name="keywords" content="kártevők, betegségek, permetszerek, fűszerpaprika"/>
     <link rel="icon" href="../pics/icon.jpg"/>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Paradicsom</title>
 </head>
 <body>
 
-<div id="header">
+<div id="header" class = "slider">
     <h1>Növénypatika</h1>
 </div>
 
 
 <div class="row">
     <div class="col-3 col-s-3 navigation">
-        <ul>
-            <li>
-                <a href="/index.html">Kezdőlap</a>
-            </li>
-            <li>
-                <a href="/html/redpepper.html">Fűszerpaprika</a>
-            </li>
-            <li>
-                <a href="/html/peach.html">Őszibarack</a>
-            </li>
-            <li>
-                <a href="/html/rose.html">Rózsa</a>
-            </li>
-            <li>
-                <a href="/html/gerbera.html">Gerbera</a>
-            </li>
-            <li>
-                <a href="/html/tomato.html">Paradicsom</a>
-            </li>
-        </ul>
+        <nav>
+            <ul>
+                <li>
+                    <a href="../index.php">Kezdőlap</a>
+                </li>
+                <li>
+                    <a href="redpepper.html">Fűszerpaprika</a>
+                </li>
+                <li>
+                    <a href="peach.html">Őszibarack</a>
+                </li>
+                <li>
+                    <a href="rose.html">Rózsa</a>
+                </li>
+                <li>
+                    <a href="gerbera.html">Gerbera</a>
+                </li>
+                <li>
+                    <a href="tomato.html" class = "activePage">Paradicsom</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <!--
@@ -50,7 +52,7 @@
         <main>
         <article>
             <h2>Paradicsomtermesztés üvegházban vagy fóliában</h2>
-            <img src="/pics/paradicsom_1.jpg" alt="Őszibarack" class="logo"/>
+            <img id="tomatoPic" src="../pics/paradicsom_1.jpg" alt="Őszibarack" class="logo"/>
             <p>A paradicsomtermesztés már tél végén megkezdődik azzal, hogy eldöntjük, milyen fajtát szeretnénk termeszteni, beszerezzük hozzá a megfelelő, egészséges vetőmagot, majd nekifogunk a csíráztatáshoz és a palánták saját kezű felneveléséhez.</p>
             <p>A paradicsom nagyon melegigényes, szereti a dús, párás levegőt, közben igencsak érzékeny a huzatra, tehát a fólia szellőzését érdemes fóliavezérléssel megoldani. A paradicsomot szokás még belső függönyözéssel is védeni a hirtelen légáramlatoktól, főként még növendék korban.</p>
             <p>Természetesen lehetséges már közvetlenül a talajba kiültetésre alkalmas palántákat is vásárolni megbízható forrásból, és április elején már mehetnek is a “szabadföldbe” a fóliasátor alá.</p>
@@ -86,8 +88,11 @@
         <article>
             <h2>Ragadozó poloska akció!</h2>
             <p>Tekintsék meg videónkat, hogy ragadozó poloskáink hogyan pusztítják el az üvegházi molytetű álcáit!</p>
-            <p>Rendeljen, ma! Ingyenes házhozszállítás! Rendkívüli kedvezmény! <br><span style="color:red;font-weight:bold">Csak 1000 Ft/tasak!</span></p>
-            <iframe width="853" height="480" src="https://www.youtube.com/embed/bVlZSkd5W0I" title="Biological control of whitefly - Macrolophus pygmaeus" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <p>Rendeljen, ma! Ingyenes házhozszállítás! Rendkívüli kedvezmény!</p>
+            <div id="animation1">Csak 1000 Ft/tasak!</div>
+            <div class="container-iframe">
+            <iframe class="responsive-iframe" width="853" height="480" src="https://www.youtube.com/embed/bVlZSkd5W0I" title="Biological control of whitefly - Macrolophus pygmaeus" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </article>
         </main>
     </div>

@@ -36,6 +36,12 @@ $userEmailTable = "";
 $userProfilePicTable = "";
 $userCommentTable = "";
 
+
+//cookie for counting the number of rating of the page
+//setcookie("pageRatingNumber", 0);
+//$currentRate = 0;
+
+
 //load visibility information according to settings of the users from visibility.txt
 //we call getData() function of readDatafile.php
 
@@ -382,6 +388,38 @@ if (isset($_POST['sendMessage']) && ($_POST['sendMessage'] === "Küldés")) {
 
 }
 
+//Rate the site with 1-5 points
+if (isset($_POST['pageRating'] )) {
+
+    if (trim($_POST['pageRating'] ) === "1"){
+        $currentRate = 1;
+    }else if (trim($_POST['pageRating'] ) === "2"){
+        $currentRate = 2;
+    }else if (trim($_POST['pageRating'] ) === "3"){
+        $currentRate = 3;
+    }else if (trim($_POST['pageRating'] ) === "4"){
+        $currentRate = 4;
+    }else if (trim($_POST['pageRating'] ) === "5"){
+        $currentRate = 5;
+    }
+
+    $pageRatingCookie = 0;
+    if(isset($_COOKIE["pageRatingCookie"])){
+        $pageRatingCookie = $_COOKIE["pageRatingCookie"];
+    }
+    $pageRatingNumber = 0;
+    if(isset($_COOKIE["pageRatingNumber"])){
+        $pageRatingNumber = $_COOKIE["pageRatingNumber"] ;
+
+    }
+    $pageRatingNumber = $pageRatingNumber + 1;
+
+    setcookie("currentRate", $currentRate , time() + 10 );
+    setcookie("pageRatingNumber", $pageRatingNumber);
+    setcookie("pageRatingCookie", ($pageRatingCookie + $currentRate ) );
+    header( "Location: logged.php");
+}
+
 
 ?>
 
@@ -616,12 +654,45 @@ if (isset($_POST['sendMessage']) && ($_POST['sendMessage'] === "Küldés")) {
                                 ?>
                             </fieldset>
                         </form>
-                    <form action="" method="post">
-                        <fieldset>
-                            <legend>Kijelentkezés:</legend>
-                            <input type="submit" name="quit" value="Kijelentkezés"/>
-                        </fieldset>
-                    </form>
+                        <form action="" method="post">
+                            <fieldset>
+                                <legend>Kijelentkezés:</legend>
+                                <input type="submit" name="quit" value="Kijelentkezés"/>
+                            </fieldset>
+                        </form>
+                     <hr/>
+                        <form action="" method="post">
+                            <fieldset>
+                                <legend>Oldal értékelése</legend>
+                                <label for="rating">Értékeld kérlek az oldalunkat</label><br/>
+                                <input type="submit" name="pageRating" value="  1  "/>
+                                <input type="submit" name="pageRating" value="  2  "/>
+                                <input type="submit" name="pageRating" value="  3  "/>
+                                <input type="submit" name="pageRating" value="  4  "/>
+                                <input type="submit" name="pageRating" value="  5  "/>
+                                <br/>
+                                <?php
+                                    $currentRate = 0;
+                                    if(isset($_COOKIE["currentRate"])){
+                                        $currentRate = $_COOKIE["currentRate"];
+                                        echo "Köszönjük a(z) : " . $currentRate . " pontos értékelésedet <br/>";
+                                    }
+
+
+                                    $pageRatingCookie = 0;
+                                    $pageRatingNumber = 0;
+                                    if(isset($_COOKIE["pageRatingCookie"]) && isset($_COOKIE["pageRatingNumber"])){
+                                        $pageRatingCookie = $_COOKIE["pageRatingCookie"];
+                                        $pageRatingNumber = $_COOKIE["pageRatingNumber"];
+                                        echo "Az oldal értékelése " . $pageRatingNumber ."db értékelés alapján: " . $pageRatingCookie / $pageRatingNumber. "<br/>";
+                                    }
+
+
+                                ?>
+                                <br/>
+                                <a  href="resetCookies.php"> Reset Rating</a>
+                            </fieldset>
+                        </form>
                 </div>
             </aside>
         </div>
